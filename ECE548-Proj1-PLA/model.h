@@ -6,15 +6,48 @@
 
 #pragma once
 
+#include <vector>
+
+using namespace std;
+
 class PLA
 {
+
 protected:
+
 	double learningRate;
+	int epochs;
+	vector<double> weights;
+	vector<int> train;
+	vector<int> test;
 
 public:
 	PLA(); // constructor
 
-	void UpdateWeights();
+	template<typename T> void loadData(vector<T> _train, vector<T> _test);
+
+	void setLearningRate(double n);
+
+	void setEpochs(double e);
+
+	void updateWeights();
+
+	void runModel(double epochs, double learningRate);
+
+	//int hypothesis(vector<int> vec);
+	int hypothesis(int x, double w);
+
+	void modifyWeights(vector<int> train, vector<int> test);
+
+
 
 };
+
+template<typename T>
+inline void PLA::loadData(vector<T> _train, vector<T> _test)
+{
+	train = _train;
+	test = _test;
+	//cout << "loadData";
+}
 

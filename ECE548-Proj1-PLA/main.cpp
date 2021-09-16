@@ -26,7 +26,7 @@ struct Example
     int csection;
 };
 
-vector<Example> ReadFile(string path)
+vector<int> readFile(string path)
 {
     ifstream inputFile(path);
     if (!inputFile.is_open())
@@ -35,7 +35,8 @@ vector<Example> ReadFile(string path)
         exit(1);
     }
 
-    vector<Example> v;
+    //vector<Example> v;
+    vector<int> v;
 
     string out;
     string str;
@@ -45,14 +46,17 @@ vector<Example> ReadFile(string path)
     while (getline(inputFile, str))
     {
         Example e;
+        int i;
         istringstream iss(str);
         string token;
 
         getline(iss, token, ',');
         e.id = stoi(token);
 
+
         getline(iss, token, ',');
         e.age = stoi(token);
+        i = stoi(token);
 
         getline(iss, token, ',');
         e.deliveryNum = stoi(token);
@@ -69,7 +73,7 @@ vector<Example> ReadFile(string path)
         getline(iss, token, ',');
         e.csection = stoi(token);
 
-        v.push_back(e);
+        v.push_back(i);
     }
     return v;
 }
@@ -78,13 +82,28 @@ int main()
 {
     string path = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.csv";
 
-    vector<Example> v;
+    vector<int> v;
 
-    v = ReadFile(path);
+    vector<int> train;
+    vector<int> test;
+
+    for (int i = 0; i < v.size() + 1; i++)
+    {
+        if (i < v.size() / 2)
+            train.push_back(v[i]);
+        else
+            test.push_back(v[i]);
+    }
+
+    v = readFile(path);
 
     PLA model;
 
-    for (int i = 0; i < v.size(); i++)
-        cout << v[i].id << ' ' << v[i].age << ' ' << v[i].deliveryNum << ' ' << v[i].deliveryType << ' ' << v[i].blood << ' '
-        << v[i].heart << ' ' << v[i].csection << '\n';
+    model.loadData(train, test);
+
+    model.runModel(10, 0.1);
+
+    //for (int i = 0; i < v.size(); i++)
+    //    cout << v[i].id << ' ' << v[i].age << ' ' << v[i].deliveryNum << ' ' << v[i].deliveryType << ' ' << v[i].blood << ' '
+    //    << v[i].heart << ' ' << v[i].csection << '\n';
 }
