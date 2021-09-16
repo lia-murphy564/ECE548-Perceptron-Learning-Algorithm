@@ -1,3 +1,9 @@
+// ------------------------------------------------------ //
+// Perception Learning Algorithm for ECE548 Project 1 # 8
+// Code written by Lia Murphy, Julio, Khaled
+// on 9/15/2021
+// ------------------------------------------------------ //
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -8,16 +14,12 @@
 
 using namespace std;
 
-class PLA
+PLA::PLA() // constructor
 {
-protected:
 
-    double learningRate;
+}
 
-public:
-
-    void UpdateWeights()
-    {
-
-    }
-};
+void PLA::UpdateWeights()
+{
+	cout << "pdate";
+}
