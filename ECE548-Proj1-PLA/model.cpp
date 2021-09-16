@@ -11,12 +11,11 @@ using namespace std;
 class PLA
 {
 protected:
-    //vector<attribute> attributes;
 
-    double bias;
-    double rate;
+    double learningRate;
 
 public:
+
     void UpdateWeights()
     {
 

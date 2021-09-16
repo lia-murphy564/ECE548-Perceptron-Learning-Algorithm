@@ -28,7 +28,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\Documents\caesarian.csv">
+    <None Include="caesarian.csv">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

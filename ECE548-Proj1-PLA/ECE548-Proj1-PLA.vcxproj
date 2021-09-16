@@ -146,7 +146,7 @@
     <ClInclude Include="model.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\Documents\caesarian.csv" />
+    <None Include="caesarian.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
