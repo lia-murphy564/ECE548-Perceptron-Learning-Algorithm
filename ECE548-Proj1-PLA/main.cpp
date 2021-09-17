@@ -87,15 +87,15 @@ int main()
     vector<int> train;
     vector<int> test;
 
-    for (int i = 0; i < v.size() + 1; i++)
-    {
-        if (i < v.size() / 2)
-            train.push_back(v[i]);
-        else
-            test.push_back(v[i]);
-    }
-
     v = readFile(path);
+
+    //for (int i = 0; i < v.size() + 1; i++)
+    //{
+    //    if (i < v.size() / 2)
+    //        train.push_back(v[i]);
+    //    else
+    //        test.push_back(v[i]);
+    //}
 
     PLA model;
 

@@ -35,12 +35,13 @@ public:
 	void runModel(double epochs, double learningRate);
 
 	//int hypothesis(vector<int> vec);
-	int hypothesis(int x, double w);
+	int sign(double x);
+
+	int hypothesis(vector<int> train);
 
 	void modifyWeights(vector<int> train, vector<int> test);
 
-
-
+	void trainSet(vector<int> train, int target);
 };
 
 template<typename T>
@@ -48,6 +49,6 @@ inline void PLA::loadData(vector<T> _train, vector<T> _test)
 {
 	train = _train;
 	test = _test;
-	//cout << "loadData";
+	cout << "Loading data...\n";
 }
 
