@@ -139,10 +139,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="data.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="model.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="data.h" />
     <ClInclude Include="model.h" />
   </ItemGroup>
   <ItemGroup>

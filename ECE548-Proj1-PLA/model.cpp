@@ -33,28 +33,12 @@ void PLA::setEpochs(double e)
 
 void PLA::updateWeights()
 {
-	cout << "UpdateWeights";
-}
-
-void PLA::runModel(double epochs, double learningRate)
-{
-	PLA::setEpochs(epochs);
-	PLA::setLearningRate(learningRate);
-
-	cout << "epochs = " << epochs << "\neta = " << learningRate << "\n";
-
-	//PLA::modifyWeights(train, test);
-	//PLA::doTrain(x, 1);
-
-	//cout << "Initializing weights \n";
-
+	// Init weights to 0
 	for (int i = 0; i < x.size() + 1; i++)
 	{
 		weights.push_back(0);
 		//cout << weights[i];
 	}
-
-	//vector<int> h = PLA::hypothesis(x);
 
 	//Iterate through epochs and calculate weights
 	for (int i = 0; i < epochs; i++)
@@ -77,8 +61,23 @@ void PLA::runModel(double epochs, double learningRate)
 			//cout << "   Weight: " << weights[i] << "\n";
 		}
 	}
+}
 
-	vector<int> out;
+void PLA::runModel(double epochs, double learningRate)
+{
+	PLA::setEpochs(epochs);
+	PLA::setLearningRate(learningRate);
+	PLA::updateWeights();
+
+	cout << "epochs = " << epochs << "\neta = " << learningRate << "\n";
+
+	PLA::classifyData();
+
+	
+}
+
+void PLA::classifyData()
+{
 	int amtCorrect = 0; // amount of correct values
 
 	// multiply inputs by weights
@@ -97,8 +96,42 @@ void PLA::runModel(double epochs, double learningRate)
 
 		out.push_back(result);
 	}
+	//cout << out.size();
 
 	double pctGuessed = 100 * amtCorrect / x.size();
+	cout << "Percent Guessed = " << pctGuessed << " % \n";
+}
+
+void PLA::optimizeModel(int epoch_min, int epoch_max, double eta_min, double eta_max)
+{
+	//PLA::runModel(1, 0.5); // base run to generate output vectors
+
+	int amtCorrect = 0;
+	double pctGuessed = 0.0;
+	int epochs = 0;
+	double eta = 0.0;
+	for (int i = epoch_min; i <= epoch_max; i++)
+	{
+	    for (double j = eta_min; j <= eta_max; j += 0.01)
+	    {
+	        //cout << "epochs = " << i << "  eta = " << j << " ";
+	        runModel(i, j);
+			for (int i = 0; i < out.size(); i++)
+			{
+				if (out[i] == y[i])
+					amtCorrect += 1;
+			}
+			double _pctGuessed = 100 * amtCorrect / x.size();
+			if (_pctGuessed > pctGuessed)
+			{
+				pctGuessed = _pctGuessed;
+				epochs = i;
+				eta = j;
+			}
+	    }
+	}
+
+	cout << "Model optimized at (epochs=" << epochs << ", eta=" << eta << ") \n";
 	cout << "Percent Guessed = " << pctGuessed << " % \n";
 }
 
@@ -129,45 +162,6 @@ void PLA::loadData(vector<int> _x, vector<int> _y)
 	x = _x;
 	cout << "Loading data...\n";
 }
-
-
-void PLA::doTrain(vector<int> train, int target)
-{
-	
-}
-
-//void PLA::modifyWeights(vector<int> train, vector<int> test)
-//{
-//	cout << "Initializing weights \n";
-//	//cout << train.size();
-//	for (int i = 0; i < train.size() + 1; i++)
-//	{
-//		weights.push_back(0.1);
-//		//cout << weights[i];
-//	}
-//}
-
-
-
-	//for (int i = 0; i < epochs; i++)
-	//{
-	//	cout << "Epoch: " << i << " | " << "Train:" << train[i] << " | ";
-	//	cout << "Test: " << test[i] << " | ";
-	//	cout << "Hypothesis: " << hypothesis(train[i]) << " | ";
-
-	//	/*for (int j = 0; j < train.size(); j++)
-	//	{
-	//		double x_i = learningRate * (test[j] - hypothesis(train[j]));
-
-	//		for (int k = 0; k < test.size(); k++)
-	//		{
-	//			weights[k] += x_i * test[k];
-	//		}
-	//		weights[0] = x_i;
-	//	}*/
-
-	//	cout << "Weight = " << weights[i] << " | " "\n";
-	//}
 
 
 

@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "model.h"
+#include "data.h"
 
 using namespace std;
 
@@ -79,19 +80,19 @@ vector<example> readFile(string path)
 
 int main()
 {
+    DataRead dR;
+    //dR.path = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.csv";
     string path = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.csv";
 
-    vector<example> v;
+    struct csection;
+
+    vector<csection> v;
     vector<int> x; // input vector
     vector<int> y; // output vector
 
-    vector<example> train;
-    vector<example> test;
+    v = dR.readFile(path)
 
-    //cout << "train size = " << train.size() << "\n";
-    //cout << "test size = " << test.size() << "\n";
-
-    v = readFile(path);
+    //v = readFile(path);
 
     // parse into input vector
     for (int i = 0; i < v.size(); i++)
@@ -112,6 +113,8 @@ int main()
     int epochs = 7;
     double eta = 0.2;
     model.runModel(epochs, eta);
+
+   // model.optimizeModel(1, 10, 0.05, 0.5);
 
     //for (int i = 1; i <= 20; i++)
     //{
