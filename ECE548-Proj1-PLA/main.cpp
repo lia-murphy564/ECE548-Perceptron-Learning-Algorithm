@@ -15,7 +15,7 @@
 
 using namespace std;
 
-struct Example
+struct example
 {
     int id;
     int age;
@@ -26,7 +26,7 @@ struct Example
     int csection;
 };
 
-vector<int> readFile(string path)
+vector<example> readFile(string path)
 {
     ifstream inputFile(path);
     if (!inputFile.is_open())
@@ -36,7 +36,7 @@ vector<int> readFile(string path)
     }
 
     //vector<Example> v;
-    vector<int> v;
+    vector<example> v;
 
     string out;
     string str;
@@ -45,14 +45,13 @@ vector<int> readFile(string path)
 
     while (getline(inputFile, str))
     {
-        Example e;
+        example e;
         int i;
         istringstream iss(str);
         string token;
 
         getline(iss, token, ',');
         e.id = stoi(token);
-
 
         getline(iss, token, ',');
         e.age = stoi(token);
@@ -73,7 +72,7 @@ vector<int> readFile(string path)
         getline(iss, token, ',');
         e.csection = stoi(token);
 
-        v.push_back(i);
+        v.push_back(e);
     }
     return v;
 }
@@ -82,14 +81,58 @@ int main()
 {
     string path = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.csv";
 
-    vector<int> v;
+    vector<example> v;
+    vector<int> x; // input vector
+    vector<int> y; // output vector
 
-    vector<int> train;
-    vector<int> test;
+    vector<example> train;
+    vector<example> test;
+
+    //cout << "train size = " << train.size() << "\n";
+    //cout << "test size = " << test.size() << "\n";
 
     v = readFile(path);
 
-    //for (int i = 0; i < v.size() + 1; i++)
+    // parse into input vector
+    for (int i = 0; i < v.size(); i++)
+    {
+        x.push_back(v[i].age);
+    }
+
+    // parse into output vector
+    for (int i = 0; i < v.size(); i++)
+    {
+        y.push_back(v[i].csection);
+    }
+
+    PLA model;
+
+    model.loadData(x, y);
+
+    int epochs = 7;
+    double eta = 0.2;
+    model.runModel(epochs, eta);
+
+    //for (int i = 1; i <= 20; i++)
+    //{
+    //    for (double j = 0.05; j < 0.2; j += 0.01)
+    //    {
+    //        cout << "epochs = " << i << "  eta = " << j << " ";
+    //        model.runModel(i, j);
+    //    }
+    //}
+
+
+    //model.runModel(25, 0.1);
+
+    //for (int i = 0; i < v.size(); i++)
+    //{
+    //    cout << "Age: " << x[i] << " | Csection " << y[i] << "\n";
+    //}
+
+    //cout << "x size = " << x.size() << "\n";
+
+    //for (int i = 0; i < v.size(); i++)
     //{
     //    if (i < v.size() / 2)
     //        train.push_back(v[i]);
@@ -97,11 +140,16 @@ int main()
     //        test.push_back(v[i]);
     //}
 
-    PLA model;
+    //cout << "v size = " << v.size() << "\n";
+    //cout << "train size = " << train.size() << "\n";
+    //cout << "test size = " << test.size() << "\n";
 
-    model.loadData(train, test);
 
-    model.runModel(10, 0.1);
+
+
+    //model.loadData(x., y);
+
+    //cmodel.runModel(20, 0.1);
 
     //for (int i = 0; i < v.size(); i++)
     //    cout << v[i].id << ' ' << v[i].age << ' ' << v[i].deliveryNum << ' ' << v[i].deliveryType << ' ' << v[i].blood << ' '

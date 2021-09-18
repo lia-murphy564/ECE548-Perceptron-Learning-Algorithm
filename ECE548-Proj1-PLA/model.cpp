@@ -41,72 +41,113 @@ void PLA::runModel(double epochs, double learningRate)
 	PLA::setEpochs(epochs);
 	PLA::setLearningRate(learningRate);
 
-	PLA::modifyWeights(train, test);
+	cout << "epochs = " << epochs << "\neta = " << learningRate << "\n";
 
+	//PLA::modifyWeights(train, test);
+	//PLA::doTrain(x, 1);
+
+	//cout << "Initializing weights \n";
+
+	for (int i = 0; i < x.size() + 1; i++)
+	{
+		weights.push_back(0);
+		//cout << weights[i];
+	}
+
+	//vector<int> h = PLA::hypothesis(x);
+
+	//Iterate through epochs and calculate weights
+	for (int i = 0; i < epochs; i++)
+	{
+		//cout << "\n\n" << "----- Epoch: " << i << " ----- " << "\n";
+		//cout << "Example: " << train[i] << " | ";
+		//cout << "Hypothesis: " << hypothesis(train) << " | ";
+
+		for (int i = 0; i < x.size(); i++)
+		{
+			int h = hypothesis(x);
+			int error = y[i] - h;
+
+			weights[i] = learningRate * error * x[i];
+
+			//weights[i] += error * train[i] * learningRate;
+			//cout << i << "   Example: " << x[i];
+			//cout << "   Hypothesis: " << h;
+			//cout << "   Output: " << y[i];
+			//cout << "   Weight: " << weights[i] << "\n";
+		}
+	}
+
+	vector<int> out;
+	int amtCorrect = 0; // amount of correct values
+
+	// multiply inputs by weights
+	for (int i = 0; i < x.size(); i++)
+	{
+		int result = x[i] * weights[i];
+		if (result > 0)
+			result = 1;
+		else
+			result = 0;
+
+		if (result == y[i])
+			amtCorrect += 1;
+
+		//cout << "Guess: " << result << "  Real: " << y[i] << "\n";
+
+		out.push_back(result);
+	}
+
+	double pctGuessed = 100 * amtCorrect / x.size();
+	cout << "Percent Guessed = " << pctGuessed << " % \n";
 }
-
-//template<typename T> void loadData(vector<T> _train, vector<T> _test)
-//{
-//	PLA::train = _train;
-//	PLA::test = _test;
-//}
 
 int PLA::sign(double x) //activation function
 {
-	//double p = weights[0];
-	//for (int i = 0; i < vec.size(); i++)
-	//{
-	//	p += vec[i] * weights[i + 1];
-	//}
-	
-	//double p = x * w;
-	//double theta = 0.5;
 	if (x > 0)
 		return 1;
 	else
-		return -1;
+		return 0;
 }
 
-int PLA::hypothesis(vector<int> train)
+int PLA::hypothesis(vector<int> train) // weighted sum
 {
+	double b = 0;
 	double w_s = 0; //weighted sum
-	for (int i = 0; i < weights.size(); i++)
+	for (int i = 0; i < train.size(); i++)
 	{
-		w_s += weights[i] * train[i];
+		w_s += weights[i] * train[i] + b;
 	}
+	//cout << "weighted sum = " << w_s;
 	return sign(w_s);
 }
 
-void PLA::trainSet(vector<int> train, int target)
-{
-	int h = PLA::hypothesis(train);
-	int error = target - h;
 
-	//for (int i = 0; i < weights.size(); i++)
-	//{
-	//	//weights[i] += error * train[i] * learningRate;
-	//	//cout << weights[i] << "\n";
-	//}
+void PLA::loadData(vector<int> _x, vector<int> _y)
+{
+	y = _y;
+	x = _x;
+	cout << "Loading data...\n";
 }
 
-void PLA::modifyWeights(vector<int> train, vector<int> test)
+
+void PLA::doTrain(vector<int> train, int target)
 {
-	cout << "Initializing weights \n";
-	for (int i = 0; i < train.size() + 1; i++)
-	{
-		weights.push_back(0);
-	}
+	
+}
 
-	trainSet(train, 1);
+//void PLA::modifyWeights(vector<int> train, vector<int> test)
+//{
+//	cout << "Initializing weights \n";
+//	//cout << train.size();
+//	for (int i = 0; i < train.size() + 1; i++)
+//	{
+//		weights.push_back(0.1);
+//		//cout << weights[i];
+//	}
+//}
 
 
-	// Iterate through epochs
-	//for (int i = 0; i < epochs; i++)
-	//{
-	//	cout << "Epoch: " << i << " | " ;
-
-	//	// Iterate through
-	//}
 
 	//for (int i = 0; i < epochs; i++)
 	//{
@@ -127,7 +168,7 @@ void PLA::modifyWeights(vector<int> train, vector<int> test)
 
 	//	cout << "Weight = " << weights[i] << " | " "\n";
 	//}
-}
+
 
 
 

@@ -12,19 +12,29 @@ using namespace std;
 
 class PLA
 {
+	struct example
+	{
+		int id;
+		int age;
+		int deliveryNum;
+		int deliveryType;
+		int blood;
+		int heart;
+		int csection;
+	};
 
 protected:
 
 	double learningRate;
 	int epochs;
 	vector<double> weights;
-	vector<int> train;
-	vector<int> test;
+	vector<int> y;
+	vector<int> x;
 
 public:
 	PLA(); // constructor
 
-	template<typename T> void loadData(vector<T> _train, vector<T> _test);
+	void loadData(vector<int> _x, vector<int> y);
 
 	void setLearningRate(double n);
 
@@ -41,14 +51,15 @@ public:
 
 	void modifyWeights(vector<int> train, vector<int> test);
 
-	void trainSet(vector<int> train, int target);
+	void doTrain(vector<int> train, int target);
+
+	void classify(vector<int> input);
 };
 
-template<typename T>
-inline void PLA::loadData(vector<T> _train, vector<T> _test)
-{
-	train = _train;
-	test = _test;
-	cout << "Loading data...\n";
-}
+
+//{
+//	train = _train;
+//	test = _test;
+//	cout << "Loading data...\n";
+//}
 
