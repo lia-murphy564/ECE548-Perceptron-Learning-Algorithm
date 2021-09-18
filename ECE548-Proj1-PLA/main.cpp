@@ -1,3 +1,9 @@
+// ------------------------------------------------------ //
+// Perception Learning Algorithm for ECE548 Project 1 # 8
+// Code written by Lia Murphy, Julio, Khaled
+// on 9/15/2021
+// ------------------------------------------------------ //
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -5,9 +11,11 @@
 #include <cmath>
 #include <vector>
 
+#include "model.h"
+
 using namespace std;
 
-struct Example
+struct example
 {
     int id;
     int age;
@@ -18,33 +26,7 @@ struct Example
     int csection;
 };
 
-//template<typename T> 
-//vector<example> ReadFile(string path)
-//{
-//    ifstream inputFile(path); // stream;
-//    if (!inputFile.is_open())
-//    {
-//        cout << "failed to open file\n";
-//        exit(1);
-//    }
-//
-//    string line;
-//
-//    vector<example> v;
-//
-//    while (getline(inputFile, line))
-//    {
-//        if (!inputFile.eof())
-//        {
-//            example m(line);
-//            v.push_back(m);
-//        }
-//    }
-//    return v;
-//}
-
-//vector<string> 
-void ReadFile(string path)
+vector<example> readFile(string path)
 {
     ifstream inputFile(path);
     if (!inputFile.is_open())
@@ -53,7 +35,8 @@ void ReadFile(string path)
         exit(1);
     }
 
-    vector<Example> v;
+    //vector<Example> v;
+    vector<example> v;
 
     string out;
     string str;
@@ -62,7 +45,8 @@ void ReadFile(string path)
 
     while (getline(inputFile, str))
     {
-        Example e;
+        example e;
+        int i;
         istringstream iss(str);
         string token;
 
@@ -71,6 +55,7 @@ void ReadFile(string path)
 
         getline(iss, token, ',');
         e.age = stoi(token);
+        i = stoi(token);
 
         getline(iss, token, ',');
         e.deliveryNum = stoi(token);
@@ -88,43 +73,85 @@ void ReadFile(string path)
         e.csection = stoi(token);
 
         v.push_back(e);
-
-        //if (!inputFile.eof())
-        //{
-
-        //    line += " ";
-        //    //cout << line;
-        //    //out += line;
-        //    v.push_back(line);
-        //}
     }
-
-
-
-    for (int i = 0; i < v.size(); i++)
-        cout << v[i].id << ' ' << v[i].age << ' ' << v[i].deliveryNum << ' ' << v[i].deliveryType << ' ' << v[i].blood << ' '
-        << v[i].heart << ' ' << v[i].csection << '\n';
+    return v;
 }
 
 int main()
 {
     string path = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.csv";
 
-    ReadFile(path);
+    vector<example> v;
+    vector<int> x; // input vector
+    vector<int> y; // output vector
 
-    //example e[80];
+    vector<example> train;
+    vector<example> test;
 
-    //int i = 1;
-    //while (true)
+    //cout << "train size = " << train.size() << "\n";
+    //cout << "test size = " << test.size() << "\n";
+
+    v = readFile(path);
+
+    // parse into input vector
+    for (int i = 0; i < v.size(); i++)
+    {
+        x.push_back(v[i].age);
+    }
+
+    // parse into output vector
+    for (int i = 0; i < v.size(); i++)
+    {
+        y.push_back(v[i].csection);
+    }
+
+    PLA model;
+
+    model.loadData(x, y);
+
+    int epochs = 7;
+    double eta = 0.2;
+    model.runModel(epochs, eta);
+
+    //for (int i = 1; i <= 20; i++)
     //{
-    //    inputFile >> e[i].id >> e[i].age >> e[i].deliveryNum >> e[i].deliveryType >> e[i].blood >> e[i].heart >> e[i].csection;
-    //    cout << e[i].id << "\n";
-    //    i++;
-    //    if (inputFile.fail())
-    //        break;
+    //    for (double j = 0.05; j < 0.2; j += 0.01)
+    //    {
+    //        cout << "epochs = " << i << "  eta = " << j << " ";
+    //        model.runModel(i, j);
+    //    }
     //}
-      
-    
-    //vector<example> examples = ReadFile(path);
 
+
+    //model.runModel(25, 0.1);
+
+    //for (int i = 0; i < v.size(); i++)
+    //{
+    //    cout << "Age: " << x[i] << " | Csection " << y[i] << "\n";
+    //}
+
+    //cout << "x size = " << x.size() << "\n";
+
+    //for (int i = 0; i < v.size(); i++)
+    //{
+    //    if (i < v.size() / 2)
+    //        train.push_back(v[i]);
+    //    else
+    //        test.push_back(v[i]);
+    //}
+
+    //cout << "v size = " << v.size() << "\n";
+    //cout << "train size = " << train.size() << "\n";
+    //cout << "test size = " << test.size() << "\n";
+
+
+
+
+    //model.loadData(x., y);
+
+    //cmodel.runModel(20, 0.1);
+
+    //for (int i = 0; i < v.size(); i++)
+    //    cout << v[i].id << ' ' << v[i].age << ' ' << v[i].deliveryNum << ' ' << v[i].deliveryType << ' ' << v[i].blood << ' '
+    //    << v[i].heart << ' ' << v[i].csection << '\n';
 }
