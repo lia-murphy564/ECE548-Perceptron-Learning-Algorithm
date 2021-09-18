@@ -117,6 +117,8 @@ int PLA::hypothesis(vector<int> train) // weighted sum
 	for (int i = 0; i < train.size(); i++)
 	{
 		w_s += weights[i] * train[i] + b;
+		// w_s += w[i] * x1[i] + w[i] * x2[i] + w[i] * x3[i] + b;
+		// w_s = w[i] dot vector<int>[i]
 	}
 	//cout << "weighted sum = " << w_s;
 	return sign(w_s);
