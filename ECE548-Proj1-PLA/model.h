@@ -28,8 +28,12 @@ protected:
 	double learningRate;
 	int epochs;
 	vector<double> weights;
+
+	vector<int> out; // classified data
+
 	vector<int> y;
 	vector<vector<int>> attributes;
+
 
 public:
 	PLA(); // constructor
@@ -45,6 +49,10 @@ public:
 	void runModel(int epochs, double learningRate);
 
 	void classifyData();
+
+	void classifyData();
+
+	void optimizeModel(int epoch_min, int epoch_max, double eta_min, double eta_max);
 
 	//int hypothesis(vector<int> vec);
 	int sign(double x);
