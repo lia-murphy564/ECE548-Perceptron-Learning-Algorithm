@@ -113,7 +113,7 @@ int main()
 
     model.loadData(attributes, y);
 
-    int epochs = 50000;
+    int epochs = 10;
     double eta = 0.2;
     model.runModel(epochs, eta);
 
