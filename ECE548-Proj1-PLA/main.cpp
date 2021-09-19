@@ -79,10 +79,13 @@ vector<example> readFile(string path)
 
 int main()
 {
-    string path = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.csv";
+    //string path = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.csv";
+    string path = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/caesarian.csv";
+
 
     vector<example> v;
-    vector<int> x; // input vector
+    //vector<int> x;
+    vector<vector<int>> attributes; // input vector
     vector<int> y; // output vector
 
     vector<example> train;
@@ -91,12 +94,20 @@ int main()
     //cout << "train size = " << train.size() << "\n";
     //cout << "test size = " << test.size() << "\n";
 
+
     v = readFile(path);
 
     // parse into input vector
+    vector<int> temp = { 0,0,0,0,0 };
     for (int i = 0; i < v.size(); i++)
     {
-        x.push_back(v[i].age);
+        //x.push_back(v[i].age);
+        temp[0] = v[i].age;
+        temp[1] = v[i].deliveryNum;
+        temp[2] = v[i].deliveryType;
+        temp[3] = v[i].blood;
+        temp[4] = v[i].heart;
+        attributes.push_back(temp);
     }
 
     // parse into output vector
@@ -107,9 +118,9 @@ int main()
 
     PLA model;
 
-    model.loadData(x, y);
+    model.loadData(attributes, y);
 
-    int epochs = 7;
+    int epochs = 50000;
     double eta = 0.2;
     model.runModel(epochs, eta);
 

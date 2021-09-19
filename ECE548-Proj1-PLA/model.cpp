@@ -9,6 +9,7 @@
 #include <string>
 #include <cmath>
 #include <vector>
+#include <cstdlib>
 
 #include "model.h"
 
@@ -25,21 +26,61 @@ void PLA::setLearningRate(double n)
 	//cout << "Set learning rate to " << n << "\n";
 }
 
-void PLA::setEpochs(double e)
+void PLA::setEpochs(int e)
 {
 	epochs = e;
 	//cout << "Set epochs to " << e << "\n";
 }
 
-void PLA::updateWeights()
-{
-	cout << "UpdateWeights";
+double fRand(double fMin, double fMax) {
+	double f = (double)rand() / RAND_MAX;
+	return fMin + f * (fMax - fMin);
 }
 
-void PLA::runModel(double epochs, double learningRate)
+void PLA::updateWeights()
+{
+
+
+	for (int i = 0; i < attributes[0].size(); i++)
+	{
+		double rand = fRand(-1, 1);
+		weights.push_back(rand);
+		//cout << weights[i];
+	}
+
+	for (int i = 0; i < epochs; i++)
+	{
+		//cout << "\n\n" << "----- Epoch: " << i << " ----- " << "\n";
+		//cout << "Example: " << train[i] << " | ";
+		//cout << "Hypothesis: " << hypothesis(train) << " | ";
+
+		for (int i = 0; i < attributes.size(); i++)
+		{
+			int h = hypothesis(attributes[i]);
+			int error = y[i] - h;
+			for (int j = 0; j < weights.size(); j++) {
+				weights[j] += (error * learningRate) * attributes[i][j];
+			}
+
+			//weights[i] += error * train[i] * learningRate;
+			//cout << i << "   Example: " << x[i];
+			//cout << "   Hypothesis: " << h;
+			//cout << "   Output: " << y[i];
+			//cout << "   Weight: " << weights[i] << "\n";
+		}
+		for (int i = 0; i < weights.size(); i++) {
+			cout << "Weights[" << i << "] = " << weights[i] << "\n";
+		}
+		cout << "\n";
+	}
+
+}
+
+void PLA::runModel(int epochs, double learningRate)
 {
 	PLA::setEpochs(epochs);
 	PLA::setLearningRate(learningRate);
+	PLA::updateWeights();
 
 	cout << "epochs = " << epochs << "\neta = " << learningRate << "\n";
 
@@ -48,43 +89,24 @@ void PLA::runModel(double epochs, double learningRate)
 
 	//cout << "Initializing weights \n";
 
-	for (int i = 0; i < x.size() + 1; i++)
-	{
-		weights.push_back(0);
-		//cout << weights[i];
-	}
+
 
 	//vector<int> h = PLA::hypothesis(x);
 
 	//Iterate through epochs and calculate weights
-	for (int i = 0; i < epochs; i++)
-	{
-		//cout << "\n\n" << "----- Epoch: " << i << " ----- " << "\n";
-		//cout << "Example: " << train[i] << " | ";
-		//cout << "Hypothesis: " << hypothesis(train) << " | ";
 
-		for (int i = 0; i < x.size(); i++)
-		{
-			int h = hypothesis(x);
-			int error = y[i] - h;
+	classifyData();
 
-			weights[i] = learningRate * error * x[i];
+}
 
-			//weights[i] += error * train[i] * learningRate;
-			//cout << i << "   Example: " << x[i];
-			//cout << "   Hypothesis: " << h;
-			//cout << "   Output: " << y[i];
-			//cout << "   Weight: " << weights[i] << "\n";
-		}
-	}
-
-	vector<int> out;
+void PLA::classifyData() {
+	vector<double> out;
 	int amtCorrect = 0; // amount of correct values
 
 	// multiply inputs by weights
-	for (int i = 0; i < x.size(); i++)
+	for (int i = 0; i < attributes.size(); i++)
 	{
-		int result = x[i] * weights[i];
+		int result = hypothesis(attributes[i]);
 		if (result > 0)
 			result = 1;
 		else
@@ -98,7 +120,7 @@ void PLA::runModel(double epochs, double learningRate)
 		out.push_back(result);
 	}
 
-	double pctGuessed = 100 * amtCorrect / x.size();
+	double pctGuessed = 100 * (double)amtCorrect / attributes.size();
 	cout << "Percent Guessed = " << pctGuessed << " % \n";
 }
 
@@ -113,30 +135,33 @@ int PLA::sign(double x) //activation function
 int PLA::hypothesis(vector<int> train) // weighted sum
 {
 	double b = 0;
-	double w_s = 0; //weighted sum
-	for (int i = 0; i < train.size(); i++)
-	{
-		w_s += weights[i] * train[i] + b;
-		// w_s += w[i] * x1[i] + w[i] * x2[i] + w[i] * x3[i] + b;
-		// w_s += w[i] dot vector<int>[i] + b
-	}
+	double w_s = DotProduct(weights, train) + b;
 	//cout << "weighted sum = " << w_s;
 	return sign(w_s);
 }
 
 
-void PLA::loadData(vector<int> _x, vector<int> _y)
+void PLA::loadData(vector<vector<int>> _x, vector<int> _y)
 {
 	y = _y;
-	x = _x;
+	attributes = _x;
 	cout << "Loading data...\n";
 }
 
+double PLA::DotProduct(vector<double> x, vector<int> y) {
+	double res = 0;
+	for (int i = 0; i < x.size(); i++) {
+		res += x[i] * (double)y[i];
+	}
+	return res;
+}
 
 void PLA::doTrain(vector<int> train, int target)
 {
 	
 }
+
+
 
 //void PLA::modifyWeights(vector<int> train, vector<int> test)
 //{

@@ -29,20 +29,22 @@ protected:
 	int epochs;
 	vector<double> weights;
 	vector<int> y;
-	vector<int> x;
+	vector<vector<int>> attributes;
 
 public:
 	PLA(); // constructor
 
-	void loadData(vector<int> _x, vector<int> y);
+	void loadData(vector<vector<int>> _x, vector<int> y);
 
 	void setLearningRate(double n);
 
-	void setEpochs(double e);
+	void setEpochs(int e);
 
 	void updateWeights();
 
-	void runModel(double epochs, double learningRate);
+	void runModel(int epochs, double learningRate);
+
+	void classifyData();
 
 	//int hypothesis(vector<int> vec);
 	int sign(double x);
@@ -54,6 +56,8 @@ public:
 	void doTrain(vector<int> train, int target);
 
 	void classify(vector<int> input);
+
+	double DotProduct(vector<double> x, vector<int> y);
 };
 
 
