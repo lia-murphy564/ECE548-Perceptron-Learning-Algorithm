@@ -88,13 +88,6 @@ int main()
     vector<vector<int>> attributes; // input vector
     vector<int> y; // output vector
 
-    vector<example> train;
-    vector<example> test;
-
-    //cout << "train size = " << train.size() << "\n";
-    //cout << "test size = " << test.size() << "\n";
-
-
     v = readFile(path);
 
     // parse into input vector
