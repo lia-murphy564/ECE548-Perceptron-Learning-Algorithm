@@ -148,6 +148,10 @@
     <ClInclude Include="model.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\Documents\ECE 518 ML\imports-85.data" />
+    <None Include="..\..\..\..\Documents\ECE 518 ML\imports-85.names" />
+    <None Include="..\..\..\..\Documents\ECE 518 ML\tic-tac-toe.data" />
+    <None Include="..\..\..\..\Documents\ECE 518 ML\tic-tac-toe.names" />
     <None Include="caesarian.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
