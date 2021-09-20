@@ -28,6 +28,12 @@ class DataRead
         int heart;
         int csection;
     };
+    
+    struct bankdone
+    {
+        double variance, skewness, curtosis, entropy;
+        int class;
+    }
 
 protected:
 
