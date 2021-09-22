@@ -28,12 +28,12 @@ class DataRead
         int heart;
         int csection;
     };
-    
-    struct bankdone
+
+    struct banknote
     {
         double variance, skewness, curtosis, entropy;
-        int class;
-    }
+        int truth;
+    };
 
 protected:
 
@@ -42,7 +42,7 @@ public:
     DataRead(); // constructor
 
     template <typename T>
-    vector<T> readFile(string path)
+    vector<csection> readFileIntoCsection(string path)
     {
         ifstream inputFile(path);
         if (!inputFile.is_open())
@@ -51,7 +51,7 @@ public:
             exit(1);
         }
 
-        vector<T> v;
+        vector<csection> v;
 
         string out;
         string str;
@@ -60,8 +60,8 @@ public:
 
         while (getline(inputFile, str))
         {
-            if (typeid(T)::name == "csection")
-            {
+            //if (typeid(T)::name == "csection")
+            //{
                 csection e;
                 istringstream iss(str);
                 string token;
@@ -88,10 +88,55 @@ public:
                 e.csection = stoi(token);
 
                 v.push_back(e);
-            }
+            
+        }
+        return v;
+    }
+
+    vector<banknote> readFileIntoBanknote(string path)
+    {
+        ifstream inputFile(path);
+        if (!inputFile.is_open())
+        {
+            cout << "failed to open file\n";
+            exit(1);
+        }
+
+        vector<banknote> v;
+
+        string out;
+        string str;
+
+        getline(inputFile, str); // skip first line
+
+        while (getline(inputFile, str))
+        {
+            banknote e;
+            istringstream iss(str);
+            string token;
+
+            getline(iss, token, ',');
+            e.variance = stod(token);
+
+            getline(iss, token, ',');
+            e.skewness = stod(token);
+
+            getline(iss, token, ',');
+            e.curtosis = stod(token);
+
+            getline(iss, token, ',');
+            e.entropy = stod(token);
+
+            getline(iss, token, ',');
+            e.truth = stoi(token);
+
+            v.push_back(e);
         }
         return v;
     }
     
 };
+
+    
+
 

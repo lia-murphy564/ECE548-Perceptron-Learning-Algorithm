@@ -16,7 +16,7 @@
 
 using namespace std;
 
-struct example
+struct csection
 {
     int id;
     int age;
@@ -27,7 +27,13 @@ struct example
     int csection;
 };
 
-vector<example> readFile(string path)
+struct banknote
+{
+    double variance, skewness, curtosis, entropy;
+    int truth;
+};
+
+vector<csection> readFileIntoCsection(string path)
 {
     ifstream inputFile(path);
     if (!inputFile.is_open())
@@ -36,8 +42,7 @@ vector<example> readFile(string path)
         exit(1);
     }
 
-    //vector<Example> v;
-    vector<example> v;
+    vector<csection> v;
 
     string out;
     string str;
@@ -46,8 +51,7 @@ vector<example> readFile(string path)
 
     while (getline(inputFile, str))
     {
-        example e;
-        int i;
+        csection e;
         istringstream iss(str);
         string token;
 
@@ -56,7 +60,6 @@ vector<example> readFile(string path)
 
         getline(iss, token, ',');
         e.age = stoi(token);
-        i = stoi(token);
 
         getline(iss, token, ',');
         e.deliveryNum = stoi(token);
@@ -74,53 +77,123 @@ vector<example> readFile(string path)
         e.csection = stoi(token);
 
         v.push_back(e);
+
+    }
+    return v;
+}
+
+vector<banknote> readFileIntoBanknote(string path)
+{
+    ifstream inputFile(path);
+    if (!inputFile.is_open())
+    {
+        cout << "failed to open file\n";
+        exit(1);
+    }
+
+    vector<banknote> v;
+
+    string out;
+    string str;
+
+    getline(inputFile, str); // skip first line
+
+    while (getline(inputFile, str))
+    {
+        banknote e;
+        istringstream iss(str);
+        string token;
+
+        getline(iss, token, ',');
+        e.variance = stod(token);
+
+        getline(iss, token, ',');
+        e.skewness = stod(token);
+
+        getline(iss, token, ',');
+        e.curtosis = stod(token);
+
+        getline(iss, token, ',');
+        e.entropy = stod(token);
+
+        getline(iss, token, ',');
+        e.truth = stoi(token);
+
+        v.push_back(e);
     }
     return v;
 }
 
 int main()
 {
+    string in;
+    cout << "Input type of data (banknote, csection, cars)";
+    cin >> in;
+    cout << "\n";
 
-    DataRead dR;
-    //dR.path = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.csv";
-    
-
-    struct csection;
-
-    v = dR.readFile(path)
-
-    //v = readFile(path);
-
-    //string path = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.csv";
-    string path = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/caesarian.csv";
+    //string path = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/caesarian.csv";
+    string path = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.cs";
 
 
-    vector<example> v;
+
+
     //vector<int> x;
     vector<vector<int>> attributes; // input vector
     vector<int> y; // output vector
 
-    v = readFile(path);
+    //cs = readFileIntoCsection(path);
+    //bn = readFileIntoBanknote(path);
+    
 
+    if (in == "csection")
+    {
+        vector<csection> cs = readFileIntoCsection(path);
+        vector<int> temp = { 0,0,0,0,0 };
+        for (int i = 0; i < cs.size(); i++)
+        {
+            //x.push_back(v[i].age);
+            temp[0] = cs[i].age;
+            temp[1] = cs[i].deliveryNum;
+            temp[2] = cs[i].deliveryType;
+            temp[3] = cs[i].blood;
+            temp[4] = cs[i].heart;
+            attributes.push_back(temp);
+        }
+
+        // parse into output vector
+        for (int i = 0; i < v.size(); i++)
+        {
+            y.push_back(v[i].csection);
+        }
+    }
+
+    else if (in == "banknote")
+    {
+        vector<banknote> bn = readFileIntoBanknote(path);
+        vector<double> temp = { 0,0,0,0,0 };
+
+        for (int i = 0; i < bn.size(); i++)
+        {
+            //x.push_back(v[i].age);
+            temp[0] = bn[i].variance;
+            temp[1] = bn[i].skewness;
+            temp[2] = bn[i].curtosis;
+            temp[3] = bn[i].entropy;
+
+            // need to change attributes to double
+            attributes.push_back(temp);
+        }
+
+        // parse into output vector
+        for (int i = 0; i < bn.size(); i++)
+        {
+            // need to change attributes to double
+            y.push_back(stoi(bn[i].truth));
+        }
+    }
 
     // parse into input vector
-    vector<int> temp = { 0,0,0,0,0 };
-    for (int i = 0; i < v.size(); i++)
-    {
-        //x.push_back(v[i].age);
-        temp[0] = v[i].age;
-        temp[1] = v[i].deliveryNum;
-        temp[2] = v[i].deliveryType;
-        temp[3] = v[i].blood;
-        temp[4] = v[i].heart;
-        attributes.push_back(temp);
-    }
-
-    // parse into output vector
-    for (int i = 0; i < v.size(); i++)
-    {
-        y.push_back(v[i].csection);
-    }
+    
 
     PLA model;
 
