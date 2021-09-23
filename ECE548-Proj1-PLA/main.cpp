@@ -138,8 +138,8 @@ int main()
 
 
     //vector<int> x;
-    vector<vector<int>> attributes; // input vector
-    vector<int> y; // output vector
+    //vector<vector<int>> attributes; // input vector
+    //vector<int> y; // output vector
 
     //cs = readFileIntoCsection(path);
     //bn = readFileIntoBanknote(path);
@@ -147,6 +147,9 @@ int main()
 
     if (in == "csection")
     {
+        vector<vector<int>> attributes; // input vector
+        vector<int> y; // output vector
+
         vector<csection> cs = readFileIntoCsection(path);
         vector<int> temp = { 0,0,0,0,0 };
         for (int i = 0; i < cs.size(); i++)
@@ -169,6 +172,9 @@ int main()
 
     else if (in == "banknote")
     {
+        vector<vector<double>> attributes; // input vector
+        vector<int> y; // output vector
+        
         vector<banknote> bn = readFileIntoBanknote(path);
         vector<double> temp = { 0,0,0,0,0 };
 
