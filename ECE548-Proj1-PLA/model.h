@@ -14,13 +14,7 @@ class PLA
 {
 	struct example
 	{
-		int id;
-		int age;
-		int deliveryNum;
-		int deliveryType;
-		int blood;
-		int heart;
-		int csection;
+
 	};
 
 protected:
