@@ -96,8 +96,6 @@ vector<banknote> readFileIntoBanknote(string path)
     string out;
     string str;
 
-    getline(inputFile, str); // skip first line
-
     while (getline(inputFile, str))
     {
         banknote e;
@@ -127,14 +125,16 @@ vector<banknote> readFileIntoBanknote(string path)
 int main()
 {
     string in;
-    cout << "Input type of data (banknote, csection, cars)";
+    cout << "Input type of data (banknote, csection, cars): ";
     cin >> in;
     cout << "\n";
 
-    //string path = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/caesarian.csv";
-    string path = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.cs";
+    string csectionPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/caesarian.csv";
+    //string path = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.cs";
+    string bankNotePath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/data_banknote_authentication.txt";
 
-
+    vector<vector<double>> attributes; // input vector
+    vector<int> classifier; // output vector
 
 
     //vector<int> x;
@@ -144,14 +144,11 @@ int main()
     //cs = readFileIntoCsection(path);
     //bn = readFileIntoBanknote(path);
     
-
+    
     if (in == "csection")
     {
-        vector<vector<int>> attributes; // input vector
-        vector<int> y; // output vector
-
-        vector<csection> cs = readFileIntoCsection(path);
-        vector<int> temp = { 0,0,0,0,0 };
+        vector<csection> cs = readFileIntoCsection(csectionPath);
+        vector<double> temp = { 0,0,0,0,0 };
         for (int i = 0; i < cs.size(); i++)
         {
             //x.push_back(v[i].age);
@@ -161,23 +158,15 @@ int main()
             temp[3] = cs[i].blood;
             temp[4] = cs[i].heart;
             attributes.push_back(temp);
-        }
-
-        // parse into output vector
-        for (int i = 0; i < v.size(); i++)
-        {
-            y.push_back(v[i].csection);
+            // parse into output vector
+            classifier.push_back(cs[i].csection);
         }
     }
-
+    
     else if (in == "banknote")
     {
-        vector<vector<double>> attributes; // input vector
-        vector<int> y; // output vector
-        
-        vector<banknote> bn = readFileIntoBanknote(path);
-        vector<double> temp = { 0,0,0,0,0 };
-
+        vector<banknote> bn = readFileIntoBanknote(bankNotePath);
+        vector<double> temp = { 0,0,0,0 };
         for (int i = 0; i < bn.size(); i++)
         {
             //x.push_back(v[i].age);
@@ -185,29 +174,24 @@ int main()
             temp[1] = bn[i].skewness;
             temp[2] = bn[i].curtosis;
             temp[3] = bn[i].entropy;
-
             // need to change attributes to double
             attributes.push_back(temp);
-        }
-
-        // parse into output vector
-        for (int i = 0; i < bn.size(); i++)
-        {
-            // need to change attributes to double
-            y.push_back(stoi(bn[i].truth));
+            // parse into output vector
+            classifier.push_back(bn[i].truth);
         }
     }
 
-    // parse into input vector
-    
-
     PLA model;
 
-    model.loadData(attributes, y);
+    model.loadData(attributes, classifier);
 
     int epochs = 10;
-    double eta = 0.2;
+    double eta = 0.1;
     model.runModel(epochs, eta);
+
+
+
+    // parse into input vector
 
    // model.optimizeModel(1, 10, 0.05, 0.5);
 
