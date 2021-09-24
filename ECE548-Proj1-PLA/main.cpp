@@ -126,84 +126,89 @@ vector<banknote> readFileIntoBanknote(string path)
 
 int main()
 {
-    string in;
-    cout << "Input type of data (banknote, csection, cars)";
-    cin >> in;
-    cout << "\n";
-
-    //string path = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/caesarian.csv";
-    string path = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.cs";
-
-
-
-
-    //vector<int> x;
-    vector<vector<int>> attributes; // input vector
-    vector<int> y; // output vector
-
-    //cs = readFileIntoCsection(path);
-    //bn = readFileIntoBanknote(path);
-    
-
-    if (in == "csection")
+    while (true)
     {
-        vector<csection> cs = readFileIntoCsection(path);
-        vector<int> temp = { 0,0,0,0,0 };
-        for (int i = 0; i < cs.size(); i++)
+        string in;
+        int epochs;
+        double eta;
+        cout << "Input type of data (banknote, csection, cars):\n";     cin >> in;
+        cout << "Enter epochs: "; cin >> epochs;
+        cout << "\nEnter learning rate: "; cin >> eta;
+
+        cout << "\n";
+
+        //string path = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/caesarian.csv";
+        string path_cs = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.csv";
+        string path_bn = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/data_banknote_authentication.txt";
+
+
+        //vector<vector<int>> attributes_cs; // input vector
+        vector<vector<double>> attributes; // input vector
+        vector<int> y; // output vector
+
+
+        if (in == "csection")
         {
-            //x.push_back(v[i].age);
-            temp[0] = cs[i].age;
-            temp[1] = cs[i].deliveryNum;
-            temp[2] = cs[i].deliveryType;
-            temp[3] = cs[i].blood;
-            temp[4] = cs[i].heart;
-            attributes.push_back(temp);
+            vector<csection> cs = readFileIntoCsection(path_cs);
+            //vector<int> temp = { 0,0,0,0,0 };
+            vector<double> temp = { 0,0,0,0,0 };
+            for (int i = 0; i < cs.size(); i++)
+            {
+                temp[0] = cs[i].age;
+                temp[1] = cs[i].deliveryNum;
+                temp[2] = cs[i].deliveryType;
+                temp[3] = cs[i].blood;
+                temp[4] = cs[i].heart;
+                attributes.push_back(temp);
+            }
+
+            // parse into output vector
+            for (int i = 0; i < cs.size(); i++)
+            {
+                y.push_back(cs[i].csection);
+            }
         }
 
-        // parse into output vector
-        for (int i = 0; i < v.size(); i++)
+        else if (in == "banknote")
         {
-            y.push_back(v[i].csection);
+            vector<banknote> bn = readFileIntoBanknote(path_bn);
+            vector<double> temp = { 
+                0, //attribute 1
+                0, //attribute 2
+                //0, //attribute 3
+                //0, //attribute 4
+            };
+
+            for (int i = 0; i < bn.size(); i++)
+            {
+                temp[0] = bn[i].variance;
+                temp[1] = bn[i].skewness;
+                //temp[2] = bn[i].curtosis;
+                //temp[3] = bn[i].entropy;
+
+                // need to change attributes to double
+                attributes.push_back(temp);
+
+            }
+
+            // parse into output vector
+            for (int i = 0; i < bn.size(); i++)
+            {
+                // need to change attributes to double
+                y.push_back(bn[i].truth);
+            }
+
         }
+
+        // parse into input vector
+
+        PLA model;
+        model.loadData(attributes, y);
+        model.runModel(epochs, eta);
+
+        //model.optimizeModel(1, 10, 0.05, 0.5);
     }
-
-    else if (in == "banknote")
-    {
-        vector<banknote> bn = readFileIntoBanknote(path);
-        vector<double> temp = { 0,0,0,0,0 };
-
-        for (int i = 0; i < bn.size(); i++)
-        {
-            //x.push_back(v[i].age);
-            temp[0] = bn[i].variance;
-            temp[1] = bn[i].skewness;
-            temp[2] = bn[i].curtosis;
-            temp[3] = bn[i].entropy;
-
-            // need to change attributes to double
-            attributes.push_back(temp);
-        }
-
-        // parse into output vector
-        for (int i = 0; i < bn.size(); i++)
-        {
-            // need to change attributes to double
-            y.push_back(stoi(bn[i].truth));
-        }
-    }
-
-    // parse into input vector
-    
-
-    PLA model;
-
-    model.loadData(attributes, y);
-
-    int epochs = 10;
-    double eta = 0.2;
-    model.runModel(epochs, eta);
-
-   // model.optimizeModel(1, 10, 0.05, 0.5);
+   
 
     //for (int i = 1; i <= 20; i++)
     //{

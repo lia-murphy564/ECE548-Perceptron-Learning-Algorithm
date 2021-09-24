@@ -40,19 +40,20 @@ double fRand(double fMin, double fMax)
   
 void PLA::updateWeights()
 {
+	// clear weights vector
+	weights.clear();
 
+	//int size = 2;
 
-	for (int i = 0; i < attributes[0].size(); i++)
-
+	// Init weights to random
+	for (int i = 0; i < attributes[1].size(); i++)
 	{
 		double rand = fRand(-1, 1);
 		weights.push_back(rand);
 		//cout << weights[i];
 	}
 
-
-	//Iterate through epochs and calculate weights
-
+	// Iterate through epochs and calculate weights
 	for (int i = 0; i < epochs; i++)
 	{
 		//cout << "\n\n" << "----- Epoch: " << i << " ----- " << "\n";
@@ -63,6 +64,7 @@ void PLA::updateWeights()
 		{
 			int h = hypothesis(attributes[i]);
 			int error = y[i] - h;
+
 			for (int j = 0; j < weights.size(); j++) {
 				weights[j] += (error * learningRate) * attributes[i][j];
 			}
@@ -73,6 +75,7 @@ void PLA::updateWeights()
 			//cout << "   Output: " << y[i];
 			//cout << "   Weight: " << weights[i] << "\n";
 		}
+
 		for (int i = 0; i < weights.size(); i++) {
 			cout << "Weights[" << i << "] = " << weights[i] << "\n";
 		}
@@ -80,7 +83,7 @@ void PLA::updateWeights()
 	}
 }
 
-void PLA::runModel(double epochs, double learningRate)
+void PLA::runModel(int epochs, double learningRate)
 {
 	PLA::setEpochs(epochs);
 	PLA::setLearningRate(learningRate);
@@ -127,18 +130,19 @@ void PLA::optimizeModel(int epoch_min, int epoch_max, double eta_min, double eta
 	double pctGuessed = 0.0;
 	int epochs = 0;
 	double eta = 0.0;
+
 	for (int i = epoch_min; i <= epoch_max; i++)
 	{
 	    for (double j = eta_min; j <= eta_max; j += 0.01)
 	    {
 	        //cout << "epochs = " << i << "  eta = " << j << " ";
-	        runModel(i, j);
+	        //runModel(i, j);
 			for (int i = 0; i < out.size(); i++)
 			{
 				if (out[i] == y[i])
 					amtCorrect += 1;
 			}
-			double _pctGuessed = 100 * amtCorrect / x.size();
+			double _pctGuessed = 100 * amtCorrect / attributes.size();
 			if (_pctGuessed > pctGuessed)
 			{
 				pctGuessed = _pctGuessed;
@@ -160,7 +164,7 @@ int PLA::sign(double x) //activation function
 		return 0;
 }
 
-int PLA::hypothesis(vector<int> train) // weighted sum
+int PLA::hypothesis(vector<double> train) // weighted sum
 {
 	double b = 0;
 	double w_s = DotProduct(weights, train) + b;
@@ -169,14 +173,21 @@ int PLA::hypothesis(vector<int> train) // weighted sum
 }
 
 
-void PLA::loadData(vector<vector<int>> _x, vector<int> _y)
+//void PLA::loadData(vector<vector<int>> _x, vector<int> _y)
+//{
+//	y = _y;
+//	attributes = _x;
+//	cout << "Loading data...\n";
+//}
+
+void PLA::loadData(vector<vector<double>> _x, vector<int> _y)
 {
 	y = _y;
 	attributes = _x;
 	cout << "Loading data...\n";
 }
 
-double PLA::DotProduct(vector<double> x, vector<int> y) {
+double PLA::DotProduct(vector<double> x, vector<double> y) {
 	double res = 0;
 	for (int i = 0; i < x.size(); i++) {
 		res += x[i] * (double)y[i];
