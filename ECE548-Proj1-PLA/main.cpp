@@ -615,7 +615,7 @@ int main()
     string irisPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/iris.data";
     string happyPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/SomervilleHappinessSurvey2015.csv";
     string balloonPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/balloons/adult+stretch.data";
-    string tttPath = "C:/Users/julio/Amelia/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/tic-tac-toe.data";
+    string tttPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/tic-tac-toe.data";
     string habermanPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/haberman.data";
     string housePath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/house-votes-84.data";
 
@@ -630,7 +630,6 @@ int main()
         cout << "Input type of data(banknote, csection, iris, happy, balloon, ttt, haberman, house): ";  cin >> in;
         cout << "Enter epochs: "; cin >> epochs;
         cout << "Enter learning rate: "; cin >> eta;
-        cout << "\n";
 
         if (in == "csection")
         {
@@ -660,26 +659,20 @@ int main()
             vector<double> temp = {
                 0, //attribute 1
                 0, //attribute 2
-                //0, //attribute 3
-                //0, //attribute 4
+                0, //attribute 3
+                0, //attribute 4
             };
 
             for (int i = 0; i < bn.size(); i++)
             {
                 temp[0] = bn[i].variance;
                 temp[1] = bn[i].skewness;
-                //temp[2] = bn[i].curtosis;
-                //temp[3] = bn[i].entropy;
+                temp[2] = bn[i].curtosis;
+                temp[3] = bn[i].entropy;
 
                 // need to change attributes to double
                 attributes.push_back(temp);
 
-            }
-
-            // parse into output vector
-            for (int i = 0; i < bn.size(); i++)
-            {
-                // need to change attributes to double
                 classifier.push_back(bn[i].truth);
             }
         }
@@ -695,7 +688,7 @@ int main()
                 temp[1] = ir[i].swidth;
                 temp[2] = ir[i].plength;
                 temp[3] = ir[i].pwidth;
-                // need to change attributes to double
+
                 attributes.push_back(temp);
                 // parse into output vector
                 classifier.push_back(ir[i].flower);
@@ -715,7 +708,7 @@ int main()
                 temp[3] = hp[i].trust;
                 temp[4] = hp[i].maintenance;
                 temp[5] = hp[i].social;
-                // need to change attributes to double
+
                 attributes.push_back(temp);
                 // parse into output vector
                 classifier.push_back(hp[i].happy);
@@ -733,7 +726,7 @@ int main()
                 temp[1] = bp[i].size;
                 temp[2] = bp[i].act;
                 temp[3] = bp[i].age;
-                // need to change attributes to double
+
                 attributes.push_back(temp);
                 // parse into output vector
                 classifier.push_back(bp[i].inflated);
@@ -756,7 +749,7 @@ int main()
                 temp[6] = tt[i].bl;
                 temp[7] = tt[i].bm;
                 temp[8] = tt[i].br;
-                // need to change attributes to double
+
                 attributes.push_back(temp);
                 // parse into output vector
                 classifier.push_back(tt[i].cla);
@@ -812,7 +805,7 @@ int main()
 
         else {
             cout << in << " is not a valid input\n";
-            exit(0);
+            exit(1);
         }
 
         // parse into input vector
@@ -821,10 +814,22 @@ int main()
         model.loadData(attributes, classifier);
         model.runModel(epochs, eta);
 
-        cout << "Optimize? (y/n): "; cin >> in;
-        if (in == "y")
-            model.optimizeModel(1, 10, 0.05, 0.5, .1);
-        
+        string in_optimize;
+        cout << "Optimize? (y/n): "; cin >> in_optimize;
+        if (in_optimize == "y")
+        {
+            model.optimizeModel(1, 15, 0.05, 1.5, .05); // optimize epochs and eta
+            //model.optimizeModel(1, 15, 0.05, 0.05, .1); // optimize epochs with static eta
+            string outPath = "C:/Users/Amelia/Documents/ECE 548 ML/OUTDATA/PLA_pctGuessed_" + in + "_optimized.csv";
+            model.outputPctVsEpochs(outPath);
+        }
+        else if (in_optimize == "no")
+        {
+            string outPath = "C:/Users/Amelia/Documents/ECE 548 ML/OUTDATA/PLA_pctGuessed_" + in + "_eta=" + std::to_string(eta) +".csv";
+            model.outputPctVsEpochs(outPath);
+        }
+
+//        model.clearData();        
         //model.optimizeModel(1, 10, 0.05, 0.5);
     }
         
