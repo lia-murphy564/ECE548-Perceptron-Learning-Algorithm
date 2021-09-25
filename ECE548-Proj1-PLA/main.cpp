@@ -48,6 +48,7 @@ struct happyex
     int trust;
     int maintenance;
     int social;
+    string test;
 };
 
 struct balloon {
@@ -179,9 +180,9 @@ vector<iris> readFileIntoIris(string path)
         getline(iss, token, ',');
         e.sFlower = token;
         if (e.sFlower == "Iris-setosa")
-            e.flower = 0;
-        else
             e.flower = 1;
+        else
+            e.flower = 0;
 
         v.push_back(e);
     }
@@ -208,31 +209,29 @@ vector<happyex> readFileIntoHappy(string path)
     while (getline(inputFile, str))
     {
         happyex e;
-        int i;
         istringstream iss(str);
         string token;
 
-        getline(iss, token, ',');
-        e.happy = stoi(token);
+        getline(iss, token, '4');
+        //e.happy = stoi(token);
 
         getline(iss, token, ',');
-        e.information = stoi(token);
-        i = stoi(token);
+        //e.information = stoi(token);
 
         getline(iss, token, ',');
-        e.cost = stoi(token);
+        //e.cost = stoi(token);
 
         getline(iss, token, ',');
-        e.quality = stoi(token);
+        //e.quality = stoi(token);
 
         getline(iss, token, ',');
-        e.trust = stoi(token);
+        //e.trust = stoi(token);
 
         getline(iss, token, ',');
-        e.maintenance = stoi(token);
+        //e.maintenance = stoi(token);
 
         getline(iss, token, ',');
-        e.social = stoi(token);
+       // e.social = stoi(token);
 
         v.push_back(e);
     }
@@ -298,8 +297,8 @@ int main()
 {
     string in;
     cout << "Input type of data (banknote, csection, iris, happy, balloon): ";
-    //cin >> in;
-    in = "balloon";
+    cin >> in;
+    //in = "iris";
     cout << "\n";
 
     string csectionPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/caesarian.csv";
@@ -414,14 +413,19 @@ int main()
             classifier.push_back(bp[i].inflated);
         }
     }
+    else {
+        cout << in << " is not a valid input\n";
+        exit(0);
+    }
 
     PLA model;
 
     model.loadData(attributes, classifier);
 
-    int epochs = 1000;
-    double eta = 0.1;
-    model.runModel(epochs, eta);
+    int epochs = 100;
+    double eta = 0.6;
+    //model.runModel(epochs, eta);
+    model.optimizeModel(1, 10, 0.1, 0.9, 0.01);
 
 
 

@@ -33,17 +33,18 @@ void PLA::setEpochs(int e)
 }
 
 // handler of all model functions
-void PLA::runModel(int epochs, double learningRate)
+double PLA::runModel(int epochs, double learningRate)
 {
 	PLA::setEpochs(epochs);
 	PLA::setLearningRate(learningRate);
 	PLA::updateWeights();
 	cout << "epochs = " << epochs << "\neta = " << learningRate << "\n";
-	PLA::classifyData();
+	return PLA::classifyData();
 }
 
 double fRand(double fMin, double fMax) 
 {
+	srand(time(NULL));
 	double f = (double)rand() / RAND_MAX;
 	return fMin + f * (fMax - fMin);
 }
@@ -53,9 +54,14 @@ void PLA::updateWeights()
 	// set weights as random values between -1 and 1
 	for (int i = 0; i < attributes[0].size(); i++)
 	{
-		double rand = fRand(-1, 1);
-		weights.push_back(rand);
-		//cout << weights[i];
+		if (weights.size() < attributes[0].size()) {
+			double rand = fRand(-1, 1);
+			weights.push_back(rand);
+		}
+		else {
+			double rand = fRand(-1, 1);
+			weights[i] = rand;
+		}
 	}
 
 	//Iterate through epochs and calculate weights
@@ -88,7 +94,7 @@ void PLA::updateWeights()
 
 
 
-void PLA::classifyData() {
+double PLA::classifyData() {
 	vector<double> out;
 
 	int amtCorrect = 0; // amount of correct values
@@ -113,9 +119,10 @@ void PLA::classifyData() {
 
 	double pctGuessed = 100 * (double)amtCorrect / attributes.size();
 	cout << "Percent Guessed = " << pctGuessed << " % \n";
+	return pctGuessed;
 }
-/*
-void PLA::optimizeModel(int epoch_min, int epoch_max, double eta_min, double eta_max)
+
+void PLA::optimizeModel(int epoch_min, int epoch_max, double eta_min, double eta_max, double eta_interval)
 {
 	//PLA::runModel(1, 0.5); // base run to generate output vectors
 
@@ -129,16 +136,10 @@ void PLA::optimizeModel(int epoch_min, int epoch_max, double eta_min, double eta
 	// calculate the accuracy and save best epoch and learning rate pair
 	for (int i = epoch_min; i <= epoch_max; i++)
 	{
-	    for (double j = eta_min; j <= eta_max; j += 0.01)
+	    for (double j = eta_min; j <= eta_max; j += eta_interval)
 	    {
 	        //cout << "epochs = " << i << "  eta = " << j << " ";
-	        runModel(i, j);
-			for (int i = 0; i < out.size(); i++)
-			{
-				if (out[i] == y[i])
-					amtCorrect += 1;
-			}
-			double _pctGuessed = 100 * amtCorrect / x.size();
+			double _pctGuessed = PLA::runModel(i, j);
 			if (_pctGuessed > pctGuessed)
 			{
 				pctGuessed = _pctGuessed;
@@ -151,7 +152,7 @@ void PLA::optimizeModel(int epoch_min, int epoch_max, double eta_min, double eta
 	cout << "Model optimized at (epochs=" << epochs << ", eta=" << eta << ") \n";
 	cout << "Percent Guessed = " << pctGuessed << " % \n";
 }
-*/
+
 int PLA::sign(double x) //activation function
 {
 	if (x > 0)

@@ -40,11 +40,11 @@ public:
 
 	void updateWeights();
 
-	void runModel(int epochs, double learningRate);
+	double runModel(int epochs, double learningRate);
 
-	void classifyData();
+	double classifyData();
 
-	//void optimizeModel(int epoch_min, int epoch_max, double eta_min, double eta_max);
+	void optimizeModel(int epoch_min, int epoch_max, double eta_min, double eta_max, double eta_interval);
 
 	//int hypothesis(vector<int> vec);
 	int sign(double x);
