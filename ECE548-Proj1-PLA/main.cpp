@@ -33,7 +33,7 @@ struct banknote
     int truth;
 };
 
-struct iris {
+struct iris{
     double slength, swidth, plength, pwidth;
     string sFlower;
     int flower;
@@ -259,7 +259,7 @@ vector<happyex> readFileIntoHappy(string path)
     string out;
     string str;
 
-    //getline(inputFile, str); // skip first line
+    getline(inputFile, str); // skip first line
 
     while (getline(inputFile, str))
     {
@@ -267,26 +267,26 @@ vector<happyex> readFileIntoHappy(string path)
         istringstream iss(str);
         string token;
 
-        getline(iss, token, ',');
-        e.happy = stoi(token);
+        getline(iss, token, '4');
+        //e.happy = stoi(token);
 
         getline(iss, token, ',');
-        e.information = stoi(token);
+        //e.information = stoi(token);
 
         getline(iss, token, ',');
-        e.cost = stoi(token);
+        //e.cost = stoi(token);
 
         getline(iss, token, ',');
-        e.quality = stoi(token);
+        //e.quality = stoi(token);
 
         getline(iss, token, ',');
-        e.trust = stoi(token);
+        //e.trust = stoi(token);
 
         getline(iss, token, ',');
-        e.maintenance = stoi(token);
+        //e.maintenance = stoi(token);
 
         getline(iss, token, ',');
-        e.social = stoi(token);
+       // e.social = stoi(token);
 
         v.push_back(e);
     }
@@ -642,218 +642,279 @@ vector<house> readFileIntoHouse(string path)
 
 int main()
 {
-    string in;
-    cout << "Input type of data (banknote, csection, iris, happy, balloon, ttt, haberman, house): ";
-    cin >> in;
-    //in = "iris";
-    cout << "\n";
+    // Julio Paths
+    //string csectionPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/caesarian.csv";
+    //string bankNotePath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/data_banknote_authentication.txt";
+    //string irisPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/iris.data";
+    //string happyPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/SomervilleHappinessSurvey2015.csv";
+    //string balloonPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/balloons/adult+stretch.data";
+    //string tttPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/tic-tac-toe.data";
+    //string habermanPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/haberman.data";
+    //string housePath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/house-votes-84.data";
 
-    string csectionPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/caesarian.csv";
-    string bankNotePath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/data_banknote_authentication.txt";
-    string irisPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/iris.data";
-    string happyPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/SomervilleHappinessSurvey2015.csv";
-    string balloonPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/balloons/adult+stretch.data";
-    string tttPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/tic-tac-toe.data";
-    string habermanPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/haberman.data";
-    string housePath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/house-votes-84.data";
-    string skinPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/Skin_NonSkin.txt";
-
-    //string path = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.cs";
-
+    // Lia Paths
+    string csectionPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.csv";
+    string bankNotePath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/data_banknote_authentication.txt";
+    string irisPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/iris.data";
+    string happyPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/SomervilleHappinessSurvey2015.csv";
+    string balloonPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/balloons/adult+stretch.data";
+    string tttPath = "C:/Users/julio/Amelia/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/tic-tac-toe.data";
+    string habermanPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/haberman.data";
+    string housePath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/house-votes-84.data";
 
     vector<vector<double>> attributes; // input vector
     vector<int> classifier; // output vector
+
+    while (true)
+    {
+        string in;
+        int epochs;
+        double eta;
+        cout << "Input type of data(banknote, csection, iris, happy, balloon, ttt, haberman, house): ";  cin >> in;
+        cout << "Enter epochs: "; cin >> epochs;
+        cout << "Enter learning rate: "; cin >> eta;
+        cout << "\n";
+
+        if (in == "csection")
+        {
+            vector<csection> cs = readFileIntoCsection(csectionPath);
+            //vector<int> temp = { 0,0,0,0,0 };
+            vector<double> temp = { 0,0,0,0,0 };
+            for (int i = 0; i < cs.size(); i++)
+            {
+                temp[0] = cs[i].age;
+                temp[1] = cs[i].deliveryNum;
+                temp[2] = cs[i].deliveryType;
+                temp[3] = cs[i].blood;
+                temp[4] = cs[i].heart;
+                attributes.push_back(temp);
+            }
+
+            // parse into output vector
+            for (int i = 0; i < cs.size(); i++)
+            {
+                classifier.push_back(cs[i].csection);
+            }
+        }
+
+        else if (in == "banknote")
+        {
+            vector<banknote> bn = readFileIntoBanknote(bankNotePath);
+            vector<double> temp = {
+                0, //attribute 1
+                0, //attribute 2
+                //0, //attribute 3
+                //0, //attribute 4
+            };
+
+            for (int i = 0; i < bn.size(); i++)
+            {
+                temp[0] = bn[i].variance;
+                temp[1] = bn[i].skewness;
+                //temp[2] = bn[i].curtosis;
+                //temp[3] = bn[i].entropy;
+
+                // need to change attributes to double
+                attributes.push_back(temp);
+
+            }
+
+            // parse into output vector
+            for (int i = 0; i < bn.size(); i++)
+            {
+                // need to change attributes to double
+                classifier.push_back(bn[i].truth);
+            }
+        }
+
+        else if (in == "iris")
+        {
+            vector<iris> ir = readFileIntoIris(irisPath);
+            vector<double> temp = { 0,0,0,0 };
+            for (int i = 0; i < ir.size(); i++)
+            {
+                //x.push_back(v[i].age);
+                temp[0] = ir[i].slength;
+                temp[1] = ir[i].swidth;
+                temp[2] = ir[i].plength;
+                temp[3] = ir[i].pwidth;
+                // need to change attributes to double
+                attributes.push_back(temp);
+                // parse into output vector
+                classifier.push_back(ir[i].flower);
+            }
+        }
+
+        else if (in == "happy")
+        {
+            vector<happyex> hp = readFileIntoHappy(happyPath);
+            vector<double> temp = { 0,0,0,0,0,0 };
+            for (int i = 0; i < hp.size(); i++)
+            {
+                //x.push_back(v[i].age);
+                temp[0] = hp[i].information;
+                temp[1] = hp[i].cost;
+                temp[2] = hp[i].quality;
+                temp[3] = hp[i].trust;
+                temp[4] = hp[i].maintenance;
+                temp[5] = hp[i].social;
+                // need to change attributes to double
+                attributes.push_back(temp);
+                // parse into output vector
+                classifier.push_back(hp[i].happy);
+            }
+        }
+
+        else if (in == "balloon")
+        {
+            vector<balloon> bp = readFileIntoBalloon(balloonPath);
+            vector<double> temp = { 0,0,0,0 };
+            for (int i = 0; i < bp.size(); i++)
+            {
+                //x.push_back(v[i].age);
+                temp[0] = bp[i].color;
+                temp[1] = bp[i].size;
+                temp[2] = bp[i].act;
+                temp[3] = bp[i].age;
+                // need to change attributes to double
+                attributes.push_back(temp);
+                // parse into output vector
+                classifier.push_back(bp[i].inflated);
+            }
+        }
+
+        else if (in == "ttt")
+        {
+            vector<ttt> tt = readFileIntoTTT(tttPath);
+            vector<double> temp = { 0,0,0,0,0,0,0,0,0 };
+            for (int i = 0; i < tt.size(); i++)
+            {
+                //x.push_back(v[i].age);
+                temp[0] = tt[i].tl;
+                temp[1] = tt[i].tm;
+                temp[2] = tt[i].tr;
+                temp[3] = tt[i].ml;
+                temp[4] = tt[i].mm;
+                temp[5] = tt[i].mr;
+                temp[6] = tt[i].bl;
+                temp[7] = tt[i].bm;
+                temp[8] = tt[i].br;
+                // need to change attributes to double
+                attributes.push_back(temp);
+                // parse into output vector
+                classifier.push_back(tt[i].cla);
+            }
+        }
+
+        else if (in == "haberman")
+        {
+            vector<haberman> hm = readFileIntoHaberman(habermanPath);
+            vector<double> temp = { 0,0,0 };
+            for (int i = 0; i < hm.size(); i++)
+            {
+                //x.push_back(v[i].age);
+                temp[0] = hm[i].age;
+                temp[1] = hm[i].year;
+                temp[2] = hm[i].num;
+                // need to change attributes to double
+                attributes.push_back(temp);
+                // parse into output vector
+                classifier.push_back(hm[i].sur);
+            }
+        }
+
+        else if (in == "house")
+        {
+            vector<house> hs = readFileIntoHouse(housePath);
+            vector<double> temp = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+            for (int i = 0; i < hs.size(); i++)
+            {
+                //x.push_back(v[i].age);
+                temp[0] = hs[i].one;
+                temp[1] = hs[i].two;
+                temp[2] = hs[i].three;
+                temp[3] = hs[i].four;
+                temp[4] = hs[i].five;
+                temp[5] = hs[i].six;
+                temp[6] = hs[i].seven;
+                temp[7] = hs[i].eight;
+                temp[8] = hs[i].nine;
+                temp[9] = hs[i].ten;
+                temp[10] = hs[i].eleven;
+                temp[11] = hs[i].twelve;
+                temp[12] = hs[i].thirteen;
+                temp[13] = hs[i].fourteen;
+                temp[14] = hs[i].fifteen;
+                temp[15] = hs[i].sixteen;
+                // need to change attributes to double
+                attributes.push_back(temp);
+                // parse into output vector
+                classifier.push_back(hs[i].party);
+            }
+        }
+
+        else {
+            cout << in << " is not a valid input\n";
+            exit(0);
+        }
+
+        // parse into input vector
+
+        PLA model;
+        model.loadData(attributes, classifier);
+        model.runModel(epochs, eta);
+
+        cout << "Optimize? (y/n): "; cin >> in;
+        if (in == "y")
+            model.optimizeModel(1, 10, 0.05, 0.5, .1);
+        
+        //model.optimizeModel(1, 10, 0.05, 0.5);
+    }
+        
     
-    
-    if (in == "csection")
-    {
-        vector<csection> cs = readFileIntoCsection(csectionPath);
-        vector<double> temp = { 0,0,0,0,0 };
-        for (int i = 0; i < cs.size(); i++)
-        {
-            //x.push_back(v[i].age);
-            temp[0] = cs[i].age;
-            temp[1] = cs[i].deliveryNum;
-            temp[2] = cs[i].deliveryType;
-            temp[3] = cs[i].blood;
-            temp[4] = cs[i].heart;
-            attributes.push_back(temp);
-            // parse into output vector
-            classifier.push_back(cs[i].csection);
-        }
-    }
-    
-    else if (in == "banknote")
-    {
-        vector<banknote> bn = readFileIntoBanknote(bankNotePath);
-        vector<double> temp = { 0,0,0,0 };
-        for (int i = 0; i < bn.size(); i++)
-        {
-            //x.push_back(v[i].age);
-            temp[0] = bn[i].variance;
-            temp[1] = bn[i].skewness;
-            temp[2] = bn[i].curtosis;
-            temp[3] = bn[i].entropy;
-            // need to change attributes to double
-            attributes.push_back(temp);
-            // parse into output vector
-            classifier.push_back(bn[i].truth);
-        }
-    }
+   
 
-    else if (in == "iris")
-    {
-        vector<iris> ir = readFileIntoIris(irisPath);
-        vector<double> temp = { 0,0,0,0 };
-        for (int i = 0; i < ir.size(); i++)
-        {
-            //x.push_back(v[i].age);
-            temp[0] = ir[i].slength;
-            temp[1] = ir[i].swidth;
-            temp[2] = ir[i].plength;
-            temp[3] = ir[i].pwidth;
-            // need to change attributes to double
-            attributes.push_back(temp);
-            // parse into output vector
-            classifier.push_back(ir[i].flower);
-        }
-    }
+    //for (int i = 1; i <= 20; i++)
+    //{
+    //    for (double j = 0.05; j < 0.2; j += 0.01)
+    //    {
+    //        cout << "epochs = " << i << "  eta = " << j << " ";
+    //        model.runModel(i, j);
+    //    }
+    //}
 
-    else if (in == "happy")
-    {
-        vector<happyex> hp = readFileIntoHappy(happyPath);
-        vector<double> temp = { 0,0,0,0,0,0 };
-        for (int i = 0; i < hp.size(); i++)
-        {
-            //x.push_back(v[i].age);
-            temp[0] = hp[i].information;
-            temp[1] = hp[i].cost;
-            temp[2] = hp[i].quality;
-            temp[3] = hp[i].trust;
-            temp[4] = hp[i].maintenance;
-            temp[5] = hp[i].social;
-            // need to change attributes to double
-            attributes.push_back(temp);
-            // parse into output vector
-            classifier.push_back(hp[i].happy);
-        }
-    }
 
-    else if (in == "balloon")
-    {
-        vector<balloon> bp = readFileIntoBalloon(balloonPath);
-        vector<double> temp = { 0,0,0,0 };
-        for (int i = 0; i < bp.size(); i++)
-        {
-            //x.push_back(v[i].age);
-            temp[0] = bp[i].color;
-            temp[1] = bp[i].size;
-            temp[2] = bp[i].act;
-            temp[3] = bp[i].age;
-            // need to change attributes to double
-            attributes.push_back(temp);
-            // parse into output vector
-            classifier.push_back(bp[i].inflated);
-        }
-    }
+    //model.runModel(25, 0.1);
 
-    else if (in == "ttt")
-    {
-        vector<ttt> tt = readFileIntoTTT(tttPath);
-        vector<double> temp = { 0,0,0,0,0,0,0,0,0 };
-        for (int i = 0; i < tt.size(); i++)
-        {
-            //x.push_back(v[i].age);
-            temp[0] = tt[i].tl;
-            temp[1] = tt[i].tm;
-            temp[2] = tt[i].tr;
-            temp[3] = tt[i].ml;
-            temp[4] = tt[i].mm;
-            temp[5] = tt[i].mr;
-            temp[6] = tt[i].bl;
-            temp[7] = tt[i].bm;
-            temp[8] = tt[i].br;
-            // need to change attributes to double
-            attributes.push_back(temp);
-            // parse into output vector
-            classifier.push_back(tt[i].cla);
-        }
-    }
+    //for (int i = 0; i < v.size(); i++)
+    //{
+    //    cout << "Age: " << x[i] << " | Csection " << y[i] << "\n";
+    //}
 
-    else if (in == "haberman")
-    {
-        vector<haberman> hm = readFileIntoHaberman(habermanPath);
-        vector<double> temp = { 0,0,0 };
-        for (int i = 0; i < hm.size(); i++)
-        {
-            //x.push_back(v[i].age);
-            temp[0] = hm[i].age;
-            temp[1] = hm[i].year;
-            temp[2] = hm[i].num;
-            // need to change attributes to double
-            attributes.push_back(temp);
-            // parse into output vector
-            classifier.push_back(hm[i].sur);
-        }
-    }
+    //cout << "x size = " << x.size() << "\n";
 
-    else if (in == "house")
-    {
-        vector<house> hs = readFileIntoHouse(housePath);
-        vector<double> temp = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
-        for (int i = 0; i < hs.size(); i++)
-        {
-            //x.push_back(v[i].age);
-            temp[0] = hs[i].one;
-            temp[1] = hs[i].two;
-            temp[2] = hs[i].three;
-            temp[3] = hs[i].four;
-            temp[4] = hs[i].five;
-            temp[5] = hs[i].six;
-            temp[6] = hs[i].seven;
-            temp[7] = hs[i].eight;
-            temp[8] = hs[i].nine;
-            temp[9] = hs[i].ten;
-            temp[10] = hs[i].eleven;
-            temp[11] = hs[i].twelve;
-            temp[12] = hs[i].thirteen;
-            temp[13] = hs[i].fourteen;
-            temp[14] = hs[i].fifteen;
-            temp[15] = hs[i].sixteen;
-            // need to change attributes to double
-            attributes.push_back(temp);
-            // parse into output vector
-            classifier.push_back(hs[i].party);
-        }
-    }
+    //for (int i = 0; i < v.size(); i++)
+    //{
+    //    if (i < v.size() / 2)
+    //        train.push_back(v[i]);
+    //    else
+    //        test.push_back(v[i]);
+    //}
 
-    else if (in == "skin")
-    {
-        vector<skin> sk = readFileIntoSkin(skinPath);
-        vector<double> temp = { 0,0,0 };
-        for (int i = 0; i < sk.size(); i++)
-        {
-            //x.push_back(v[i].age);
-            temp[0] = sk[i].R;
-            temp[1] = sk[i].G;
-            temp[2] = sk[i].B;
-            // need to change attributes to double
-            attributes.push_back(temp);
-            // parse into output vector
-            classifier.push_back(sk[i].skin);
-        }
-    }
+    //cout << "v size = " << v.size() << "\n";
+    //cout << "train size = " << train.size() << "\n";
+    //cout << "test size = " << test.size() << "\n";
 
-    else {
-        cout << in << " is not a valid input\n";
-        exit(0);
-    }
 
-    PLA model;
 
-    model.loadData(attributes, classifier);
 
-    int epochs = 10;
-    double eta = 0.6;
-    model.optimizeModel(1, 1, 0.1, 0.1, 0.1);
+    //model.loadData(x., y);
+
+    //cmodel.runModel(20, 0.1);
+
+    //for (int i = 0; i < v.size(); i++)
+    //    cout << v[i].id << ' ' << v[i].age << ' ' << v[i].deliveryNum << ' ' << v[i].deliveryType << ' ' << v[i].blood << ' '
+    //    << v[i].heart << ' ' << v[i].csection << '\n';
+    //    << v[i].heart << ' ' << v[i].csection << '\n';
+    //    << v[i].heart << ' ' << v[i].csection << '\n';
 }
