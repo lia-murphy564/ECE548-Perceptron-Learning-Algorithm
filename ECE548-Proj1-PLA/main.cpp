@@ -67,6 +67,50 @@ struct house {
     int party, one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen;
 };
 
+struct skin {
+    int R, G, B, skin;
+};
+
+vector<skin> readFileIntoSkin(string path)
+{
+    ifstream inputFile(path);
+    if (!inputFile.is_open())
+    {
+        cout << "failed to open file\n";
+        exit(1);
+    }
+
+    vector<skin> v;
+
+    string out;
+    string str;
+
+    while (getline(inputFile, str))
+    {
+        skin e;
+        istringstream iss(str);
+        string token;
+
+        getline(iss, token, ',');
+        e.R = stoi(token);
+
+        getline(iss, token, ',');
+        e.G = stoi(token);
+
+        getline(iss, token, ',');
+        e.B = stoi(token);
+
+        getline(iss, token, ',');
+        if (token == "2")
+            e.skin = 0;
+        else
+            e.skin = 1;
+
+        v.push_back(e);
+    }
+    return v;
+}
+
 vector<csection> readFileIntoCsection(string path)
 {
     ifstream inputFile(path);
@@ -215,7 +259,7 @@ vector<happyex> readFileIntoHappy(string path)
     string out;
     string str;
 
-    getline(inputFile, str); // skip first line
+    //getline(inputFile, str); // skip first line
 
     while (getline(inputFile, str))
     {
@@ -223,26 +267,26 @@ vector<happyex> readFileIntoHappy(string path)
         istringstream iss(str);
         string token;
 
-        getline(iss, token, '4');
-        //e.happy = stoi(token);
+        getline(iss, token, ',');
+        e.happy = stoi(token);
 
         getline(iss, token, ',');
-        //e.information = stoi(token);
+        e.information = stoi(token);
 
         getline(iss, token, ',');
-        //e.cost = stoi(token);
+        e.cost = stoi(token);
 
         getline(iss, token, ',');
-        //e.quality = stoi(token);
+        e.quality = stoi(token);
 
         getline(iss, token, ',');
-        //e.trust = stoi(token);
+        e.trust = stoi(token);
 
         getline(iss, token, ',');
-        //e.maintenance = stoi(token);
+        e.maintenance = stoi(token);
 
         getline(iss, token, ',');
-       // e.social = stoi(token);
+        e.social = stoi(token);
 
         v.push_back(e);
     }
@@ -612,20 +656,13 @@ int main()
     string tttPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/tic-tac-toe.data";
     string habermanPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/haberman.data";
     string housePath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/house-votes-84.data";
+    string skinPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/Skin_NonSkin.txt";
 
     //string path = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.cs";
 
 
     vector<vector<double>> attributes; // input vector
     vector<int> classifier; // output vector
-
-
-    //vector<int> x;
-    //vector<vector<int>> attributes; // input vector
-    //vector<int> y; // output vector
-
-    //cs = readFileIntoCsection(path);
-    //bn = readFileIntoBanknote(path);
     
     
     if (in == "csection")
@@ -790,6 +827,23 @@ int main()
         }
     }
 
+    else if (in == "skin")
+    {
+        vector<skin> sk = readFileIntoSkin(skinPath);
+        vector<double> temp = { 0,0,0 };
+        for (int i = 0; i < sk.size(); i++)
+        {
+            //x.push_back(v[i].age);
+            temp[0] = sk[i].R;
+            temp[1] = sk[i].G;
+            temp[2] = sk[i].B;
+            // need to change attributes to double
+            attributes.push_back(temp);
+            // parse into output vector
+            classifier.push_back(sk[i].skin);
+        }
+    }
+
     else {
         cout << in << " is not a valid input\n";
         exit(0);
@@ -801,54 +855,5 @@ int main()
 
     int epochs = 10;
     double eta = 0.6;
-    //model.runModel(epochs, eta);
-    model.optimizeModel(1, 10, 0.1, 0.9, 0.1);
-
-
-
-    // parse into input vector
-
-   // model.optimizeModel(1, 10, 0.05, 0.5);
-
-    //for (int i = 1; i <= 20; i++)
-    //{
-    //    for (double j = 0.05; j < 0.2; j += 0.01)
-    //    {
-    //        cout << "epochs = " << i << "  eta = " << j << " ";
-    //        model.runModel(i, j);
-    //    }
-    //}
-
-
-    //model.runModel(25, 0.1);
-
-    //for (int i = 0; i < v.size(); i++)
-    //{
-    //    cout << "Age: " << x[i] << " | Csection " << y[i] << "\n";
-    //}
-
-    //cout << "x size = " << x.size() << "\n";
-
-    //for (int i = 0; i < v.size(); i++)
-    //{
-    //    if (i < v.size() / 2)
-    //        train.push_back(v[i]);
-    //    else
-    //        test.push_back(v[i]);
-    //}
-
-    //cout << "v size = " << v.size() << "\n";
-    //cout << "train size = " << train.size() << "\n";
-    //cout << "test size = " << test.size() << "\n";
-
-
-
-
-    //model.loadData(x., y);
-
-    //cmodel.runModel(20, 0.1);
-
-    //for (int i = 0; i < v.size(); i++)
-    //    cout << v[i].id << ' ' << v[i].age << ' ' << v[i].deliveryNum << ' ' << v[i].deliveryType << ' ' << v[i].blood << ' '
-    //    << v[i].heart << ' ' << v[i].csection << '\n';
+    model.optimizeModel(1, 1, 0.1, 0.1, 0.1);
 }
