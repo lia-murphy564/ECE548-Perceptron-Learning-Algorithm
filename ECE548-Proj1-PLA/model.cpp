@@ -30,8 +30,19 @@ void PLA::setEpochs(int e)
 	epochs = e;
 }
 
+// handler of all model functions
+double PLA::runModel(int epochs, double learningRate)
+{
+	PLA::setEpochs(epochs);
+	PLA::setLearningRate(learningRate);
+	PLA::updateWeights();
+	cout << "epochs = " << epochs << "\neta = " << learningRate << "\n";
+	return PLA::classifyData();
+}
+
 double fRand(double fMin, double fMax) 
 {
+	srand(time(NULL));
 	double f = (double)rand() / RAND_MAX;
 	return fMin + f * (fMax - fMin);
 }
@@ -46,9 +57,14 @@ void PLA::updateWeights()
 	// Init weights to random
 	for (int i = 0; i < attributes[1].size(); i++)
 	{
-		double rand = fRand(-1, 1);
-		weights.push_back(rand);
-		//cout << weights[i];
+		if (weights.size() < attributes[0].size()) {
+			double rand = fRand(-1, 1);
+			weights.push_back(0);
+		}
+		else {
+			double rand = fRand(-1, 1);
+			weights[i] = 0;
+		}
 	}
 
 	// Iterate through epochs and calculate weights
@@ -149,7 +165,7 @@ void PLA::optimizeModel(int epoch_min, int epoch_max, double eta_min, double eta
 	cout << "Model optimized at (epochs=" << epochs << ", eta=" << eta << ") \n";
 	cout << "Percent Guessed = " << pctGuessed << " % \n";
 }
-*/
+
 int PLA::sign(double x) //activation function
 {
 	if (x > 0)

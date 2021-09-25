@@ -67,6 +67,96 @@ struct house {
     int party, one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen;
 };
 
+
+vector<csection> readFileIntoCsection(string path)
+{
+    ifstream inputFile(path);
+    if (!inputFile.is_open())
+    {
+        cout << "failed to open file\n";
+        exit(1);
+    }
+
+    vector<csection> v;
+
+    string out;
+    string str;
+
+    getline(inputFile, str); // skip first line
+
+    while (getline(inputFile, str))
+    {
+        csection e;
+        istringstream iss(str);
+        string token;
+
+        getline(iss, token, ',');
+        e.id = stoi(token);
+
+        getline(iss, token, ',');
+        e.age = stoi(token);
+
+        getline(iss, token, ',');
+        e.deliveryNum = stoi(token);
+
+        getline(iss, token, ',');
+        e.deliveryType = stoi(token);
+
+        getline(iss, token, ',');
+        e.blood = stoi(token);
+
+        getline(iss, token, ',');
+        e.heart = stoi(token);
+
+        getline(iss, token, ',');
+        e.csection = stoi(token);
+
+        v.push_back(e);
+
+    }
+    return v;
+}
+
+vector<banknote> readFileIntoBanknote(string path)
+{
+    ifstream inputFile(path);
+    if (!inputFile.is_open())
+    {
+        cout << "failed to open file\n";
+        exit(1);
+    }
+
+    vector<banknote> v;
+
+    string out;
+    string str;
+
+    while (getline(inputFile, str))
+    {
+        banknote e;
+        istringstream iss(str);
+        string token;
+
+        getline(iss, token, ',');
+        e.variance = stod(token);
+
+        getline(iss, token, ',');
+        e.skewness = stod(token);
+
+        getline(iss, token, ',');
+        e.curtosis = stod(token);
+
+        getline(iss, token, ',');
+        e.entropy = stod(token);
+
+        getline(iss, token, ',');
+        e.truth = stoi(token);
+
+        v.push_back(e);
+    }
+    return v;
+}
+
 vector<iris> readFileIntoIris(string path)
 {
     ifstream inputFile(path);
@@ -153,7 +243,7 @@ vector<happyex> readFileIntoHappy(string path)
         //e.maintenance = stoi(token);
 
         getline(iss, token, ',');
-        // e.social = stoi(token);
+       // e.social = stoi(token);
 
         v.push_back(e);
     }
@@ -507,249 +597,8 @@ vector<house> readFileIntoHouse(string path)
     return v;
 }
 
-vector<csection> readFileIntoCsection(string path)
-{
-    ifstream inputFile(path);
-    if (!inputFile.is_open())
-    {
-        cout << "failed to open file\n";
-        exit(1);
-    }
-
-    vector<csection> v;
-
-    string out;
-    string str;
-
-    getline(inputFile, str); // skip first line
-
-    while (getline(inputFile, str))
-    {
-        csection e;
-        istringstream iss(str);
-        string token;
-
-        getline(iss, token, ',');
-        e.id = stoi(token);
-
-        getline(iss, token, ',');
-        e.age = stoi(token);
-
-        getline(iss, token, ',');
-        e.deliveryNum = stoi(token);
-
-        getline(iss, token, ',');
-        e.deliveryType = stoi(token);
-
-        getline(iss, token, ',');
-        e.blood = stoi(token);
-
-        getline(iss, token, ',');
-        e.heart = stoi(token);
-
-        getline(iss, token, ',');
-        e.csection = stoi(token);
-
-        v.push_back(e);
-
-    }
-    return v;
-}
-
-vector<banknote> readFileIntoBanknote(string path)
-{
-    ifstream inputFile(path);
-    if (!inputFile.is_open())
-    {
-        cout << "failed to open file\n";
-        exit(1);
-    }
-
-    vector<banknote> v;
-
-    string out;
-    string str;
-
-    while (getline(inputFile, str))
-    {
-        banknote e;
-        istringstream iss(str);
-        string token;
-
-        getline(iss, token, ',');
-        e.variance = stod(token);
-
-        getline(iss, token, ',');
-        e.skewness = stod(token);
-
-        getline(iss, token, ',');
-        e.curtosis = stod(token);
-
-        getline(iss, token, ',');
-        e.entropy = stod(token);
-
-        getline(iss, token, ',');
-        e.truth = stoi(token);
-
-        v.push_back(e);
-    }
-    return v;
-}
-
-vector<iris> readFileIntoIris(string path)
-{
-    ifstream inputFile(path);
-    if (!inputFile.is_open())
-    {
-        cout << "failed to open file\n";
-        exit(1);
-    }
-
-    vector<iris> v;
-
-    string out;
-    string str;
-
-    while (getline(inputFile, str))
-    {
-        iris e;
-        istringstream iss(str);
-        string token;
-
-        getline(iss, token, ',');
-        e.slength = stod(token);
-
-        getline(iss, token, ',');
-        e.swidth = stod(token);
-
-        getline(iss, token, ',');
-        e.plength = stod(token);
-
-        getline(iss, token, ',');
-        e.pwidth = stod(token);
-
-        getline(iss, token, ',');
-        e.sFlower = token;
-        if (e.sFlower == "Iris-setosa")
-            e.flower = 0;
-        else
-            e.flower = 1;
-
-        v.push_back(e);
-    }
-    return v;
-}
-
-vector<happyex> readFileIntoHappy(string path)
-{
-    ifstream inputFile(path);
-    if (!inputFile.is_open())
-    {
-        cout << "failed to open file\n";
-        exit(1);
-    }
-
-    //vector<Example> v;
-    vector<happyex> v;
-
-    string out;
-    string str;
-
-    getline(inputFile, str); // skip first line
-
-    while (getline(inputFile, str))
-    {
-        happyex e;
-        int i;
-        istringstream iss(str);
-        string token;
-
-        getline(iss, token, ',');
-        e.happy = stoi(token);
-
-        getline(iss, token, ',');
-        e.information = stoi(token);
-        i = stoi(token);
-
-        getline(iss, token, ',');
-        e.cost = stoi(token);
-
-        getline(iss, token, ',');
-        e.quality = stoi(token);
-
-        getline(iss, token, ',');
-        e.trust = stoi(token);
-
-        getline(iss, token, ',');
-        e.maintenance = stoi(token);
-
-        getline(iss, token, ',');
-        e.social = stoi(token);
-
-        v.push_back(e);
-    }
-    return v;
-}
-
-vector<balloon> readFileIntoBalloon(string path)
-{
-    ifstream inputFile(path);
-    if (!inputFile.is_open())
-    {
-        cout << "failed to open file\n";
-        exit(1);
-    }
-
-    vector<balloon> v;
-
-    string out;
-    string str;
-
-    while (getline(inputFile, str))
-    {
-        balloon e;
-        istringstream iss(str);
-        string token;
-
-        getline(iss, token, ',');
-        if (token == "YELLOW")
-            e.color = 0;
-        else
-            e.color = 1;
-
-        getline(iss, token, ',');
-        if (token == "SMALL")
-            e.size = 0;
-        else
-            e.size = 1;
-
-        getline(iss, token, ',');
-        if (token == "DIP")
-            e.act = 0;
-        else
-            e.act = 1;
-
-        getline(iss, token, ',');
-        if (token == "ADULT")
-            e.age = 0;
-        else
-            e.age = 1;
-
-        getline(iss, token, ',');
-        if (token == "F")
-            e.inflated = 0;
-        else
-            e.inflated = 1;
-
-        v.push_back(e);
-    }
-    return v;
-}
-
 int main()
 {
-    while (true)
-    {
         string in;
         int epochs;
         double eta;
@@ -883,75 +732,80 @@ int main()
             }
         }
 
-        else if (in == "ttt")
+    else if (in == "ttt")
+    {
+        vector<ttt> tt = readFileIntoTTT(tttPath);
+        vector<double> temp = { 0,0,0,0,0,0,0,0,0 };
+        for (int i = 0; i < tt.size(); i++)
         {
-            vector<ttt> tt = readFileIntoTTT(tttPath);
-            vector<double> temp = { 0,0,0,0,0,0,0,0,0 };
-            for (int i = 0; i < tt.size(); i++)
-            {
-                //x.push_back(v[i].age);
-                temp[0] = tt[i].tl;
-                temp[1] = tt[i].tm;
-                temp[2] = tt[i].tr;
-                temp[3] = tt[i].ml;
-                temp[4] = tt[i].mm;
-                temp[5] = tt[i].mr;
-                temp[6] = tt[i].bl;
-                temp[7] = tt[i].bm;
-                temp[8] = tt[i].br;
-                // need to change attributes to double
-                attributes.push_back(temp);
-                // parse into output vector
-                classifier.push_back(tt[i].cla);
-            }
+            //x.push_back(v[i].age);
+            temp[0] = tt[i].tl;
+            temp[1] = tt[i].tm;
+            temp[2] = tt[i].tr;
+            temp[3] = tt[i].ml;
+            temp[4] = tt[i].mm;
+            temp[5] = tt[i].mr;
+            temp[6] = tt[i].bl;
+            temp[7] = tt[i].bm;
+            temp[8] = tt[i].br;
+            // need to change attributes to double
+            attributes.push_back(temp);
+            // parse into output vector
+            classifier.push_back(tt[i].cla);
         }
+    }
 
-        else if (in == "haberman")
+    else if (in == "haberman")
+    {
+        vector<haberman> hm = readFileIntoHaberman(habermanPath);
+        vector<double> temp = { 0,0,0 };
+        for (int i = 0; i < hm.size(); i++)
         {
-            vector<haberman> hm = readFileIntoHaberman(habermanPath);
-            vector<double> temp = { 0,0,0 };
-            for (int i = 0; i < hm.size(); i++)
-            {
-                //x.push_back(v[i].age);
-                temp[0] = hm[i].age;
-                temp[1] = hm[i].year;
-                temp[2] = hm[i].num;
-                // need to change attributes to double
-                attributes.push_back(temp);
-                // parse into output vector
-                classifier.push_back(hm[i].sur);
-            }
+            //x.push_back(v[i].age);
+            temp[0] = hm[i].age;
+            temp[1] = hm[i].year;
+            temp[2] = hm[i].num;
+            // need to change attributes to double
+            attributes.push_back(temp);
+            // parse into output vector
+            classifier.push_back(hm[i].sur);
         }
+    }
 
-        else if (in == "house")
+    else if (in == "house")
+    {
+        vector<house> hs = readFileIntoHouse(housePath);
+        vector<double> temp = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+        for (int i = 0; i < hs.size(); i++)
         {
-            vector<house> hs = readFileIntoHouse(housePath);
-            vector<double> temp = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
-            for (int i = 0; i < hs.size(); i++)
-            {
-                //x.push_back(v[i].age);
-                temp[0] = hs[i].one;
-                temp[1] = hs[i].two;
-                temp[2] = hs[i].three;
-                temp[3] = hs[i].four;
-                temp[4] = hs[i].five;
-                temp[5] = hs[i].six;
-                temp[6] = hs[i].seven;
-                temp[7] = hs[i].eight;
-                temp[8] = hs[i].nine;
-                temp[9] = hs[i].ten;
-                temp[10] = hs[i].eleven;
-                temp[11] = hs[i].twelve;
-                temp[12] = hs[i].thirteen;
-                temp[13] = hs[i].fourteen;
-                temp[14] = hs[i].fifteen;
-                temp[15] = hs[i].sixteen;
-                // need to change attributes to double
-                attributes.push_back(temp);
-                // parse into output vector
-                classifier.push_back(hs[i].party);
-            }
+            //x.push_back(v[i].age);
+            temp[0] = hs[i].one;
+            temp[1] = hs[i].two;
+            temp[2] = hs[i].three;
+            temp[3] = hs[i].four;
+            temp[4] = hs[i].five;
+            temp[5] = hs[i].six;
+            temp[6] = hs[i].seven;
+            temp[7] = hs[i].eight;
+            temp[8] = hs[i].nine;
+            temp[9] = hs[i].ten;
+            temp[10] = hs[i].eleven;
+            temp[11] = hs[i].twelve;
+            temp[12] = hs[i].thirteen;
+            temp[13] = hs[i].fourteen;
+            temp[14] = hs[i].fifteen;
+            temp[15] = hs[i].sixteen;
+            // need to change attributes to double
+            attributes.push_back(temp);
+            // parse into output vector
+            classifier.push_back(hs[i].party);
         }
+    }
+
+    else {
+        cout << in << " is not a valid input\n";
+        exit(0);
+    }
 
         // parse into input vector
 
@@ -960,7 +814,7 @@ int main()
         model.runModel(epochs, eta);
 
         //model.optimizeModel(1, 10, 0.05, 0.5);
-    }
+    
    
 
     //for (int i = 1; i <= 20; i++)
