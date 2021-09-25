@@ -48,6 +48,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="data_banknote_authentication.txt" />
+    <Text Include="data_banknote_authentication.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
