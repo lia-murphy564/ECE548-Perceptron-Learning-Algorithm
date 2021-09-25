@@ -94,6 +94,25 @@ void PLA::updateWeights()
 			cout << "Weights[" << i << "] = " << weights[i] << "\n";
 		}
 		cout << "\n";
+
+		int amtCorrect = 0; // amount of correct values
+
+		// multiply inputs by weights
+		for (int i = 0; i < attributes.size(); i++)
+		{
+			int result = hypothesis(attributes[i]);
+			if (result > 0)
+				result = 1;
+			else
+				result = 0;
+
+			if (result == y[i])
+				amtCorrect += 1;
+
+			//cout << "Guess: " << result << "  Real: " << y[i] << "\n";
+		}
+		double pctGuessed = 100 * (double)amtCorrect / attributes.size();
+		cout << "Percent Guessed = " << pctGuessed << " % \n";
 	}
 }
 

@@ -46,6 +46,16 @@
     <None Include="..\..\..\..\Documents\ECE 518 ML\tic-tac-toe.data">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="haberman.data" />
+    <None Include="haberman.names" />
+    <None Include="house-votes-84.data" />
+    <None Include="house-votes-84.names" />
+    <None Include="imports-85.data" />
+    <None Include="imports-85.names" />
+    <None Include="iris.data" />
+    <None Include="SomervilleHappinessSurvey2015.csv" />
+    <None Include="tic-tac-toe.data" />
+    <None Include="tic-tac-toe.names" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="data_banknote_authentication.txt">
