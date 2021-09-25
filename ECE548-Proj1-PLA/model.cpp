@@ -32,6 +32,16 @@ void PLA::setEpochs(int e)
 	//cout << "Set epochs to " << e << "\n";
 }
 
+// handler of all model functions
+void PLA::runModel(double epochs, double learningRate)
+{
+	PLA::setEpochs(epochs);
+	PLA::setLearningRate(learningRate);
+	PLA::updateWeights();
+	cout << "epochs = " << epochs << "\neta = " << learningRate << "\n";
+	PLA::classifyData();
+}
+
 double fRand(double fMin, double fMax) 
 {
 	double f = (double)rand() / RAND_MAX;
@@ -92,8 +102,6 @@ void PLA::runModel(int epochs, double learningRate)
 	cout << "epochs = " << epochs << "\neta = " << learningRate << "\n";
 
 
-	PLA::classifyData();
-}
 
 void PLA::classifyData() {
 	vector<double> out;
@@ -131,6 +139,10 @@ void PLA::optimizeModel(int epoch_min, int epoch_max, double eta_min, double eta
 	int epochs = 0;
 	double eta = 0.0;
 
+	
+	// iterate through all epochs and learning rates
+	// run the model at that point
+	// calculate the accuracy and save best epoch and learning rate pair
 	for (int i = epoch_min; i <= epoch_max; i++)
 	{
 	    for (double j = eta_min; j <= eta_max; j += 0.01)
