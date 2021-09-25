@@ -51,19 +51,7 @@ public:
 
 	int hypothesis(vector<double> train);
 
-	//void modifyWeights(vector<int> train, vector<int> test);
-
-	//void doTrain(vector<int> train, int target);
-
-	//void classify(vector<int> input);
-
 	double DotProduct(vector<double> x, vector<double> y);
 };
 
-
-//{
-//	train = _train;
-//	test = _test;
-//	cout << "Loading data...\n";
-//}
 

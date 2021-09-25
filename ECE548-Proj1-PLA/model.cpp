@@ -97,17 +97,6 @@ void PLA::updateWeights()
 	}
 }
 
-// handler of all model functions
-double PLA::runModel(int epochs, double learningRate)
-{
-	PLA::setEpochs(epochs);
-	PLA::setLearningRate(learningRate);
-	PLA::updateWeights();
-	cout << "epochs = " << epochs << "\neta = " << learningRate << "\n";
-	return PLA::classifyData();
-}
-
-
 double PLA::classifyData() {
 	vector<double> out;
 
