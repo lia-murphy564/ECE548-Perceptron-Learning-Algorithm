@@ -33,6 +33,11 @@ struct banknote
     int truth;
 };
 
+struct iris {
+    double slength, swidth, plength, pwidth;
+    int flower;
+};
+
 vector<csection> readFileIntoCsection(string path)
 {
     ifstream inputFile(path);
@@ -122,6 +127,46 @@ vector<banknote> readFileIntoBanknote(string path)
     return v;
 }
 
+vector<iris> readFileIntoIris(string path)
+{
+    ifstream inputFile(path);
+    if (!inputFile.is_open())
+    {
+        cout << "failed to open file\n";
+        exit(1);
+    }
+
+    vector<iris> v;
+
+    string out;
+    string str;
+
+    while (getline(inputFile, str))
+    {
+        iris e;
+        istringstream iss(str);
+        string token;
+
+        getline(iss, token, ',');
+        e.slength = stod(token);
+
+        getline(iss, token, ',');
+        e.swidth = stod(token);
+
+        getline(iss, token, ',');
+        e.plength = stod(token);
+
+        getline(iss, token, ',');
+        e.pwidth = stod(token);
+
+        getline(iss, token, ',');
+        e.flower = stoi(token);
+
+        v.push_back(e);
+    }
+    return v;
+}
+
 int main()
 {
     string in;
@@ -130,8 +175,11 @@ int main()
     cout << "\n";
 
     string csectionPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/caesarian.csv";
-    //string path = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.cs";
     string bankNotePath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/data_banknote_authentication.txt";
+    string irisPath = "C:/Users/julio/Desktop/iris.data";
+
+    //string path = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.cs";
+
 
     vector<vector<double>> attributes; // input vector
     vector<int> classifier; // output vector
@@ -181,12 +229,30 @@ int main()
         }
     }
 
+    else if (in == "iris")
+    {
+        vector<iris> ir = readFileIntoIris(irisPath);
+        vector<double> temp = { 0,0,0,0 };
+        for (int i = 0; i < ir.size(); i++)
+        {
+            //x.push_back(v[i].age);
+            temp[0] = ir[i].slength;
+            temp[1] = ir[i].swidth;
+            temp[2] = ir[i].plength;
+            temp[3] = ir[i].pwidth;
+            // need to change attributes to double
+            attributes.push_back(temp);
+            // parse into output vector
+            classifier.push_back(ir[i].flower);
+        }
+    }
+
     PLA model;
 
     model.loadData(attributes, classifier);
 
     int epochs = 10;
-    double eta = 0.1;
+    double eta = 0.5;
     model.runModel(epochs, eta);
 
 
