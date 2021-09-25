@@ -33,6 +33,28 @@ struct banknote
     int truth;
 };
 
+struct iris {
+    double slength, swidth, plength, pwidth;
+    string sFlower;
+    int flower;
+};
+
+struct happyex
+{
+    int happy; // 0 = no, 1, yes
+    int information;
+    int cost;
+    int quality;
+    int trust;
+    int maintenance;
+    int social;
+};
+
+struct balloon {
+    int color, size, act, age, inflated;
+};
+
+
 vector<csection> readFileIntoCsection(string path)
 {
     ifstream inputFile(path);
@@ -96,8 +118,6 @@ vector<banknote> readFileIntoBanknote(string path)
     string out;
     string str;
 
-    getline(inputFile, str); // skip first line
-
     while (getline(inputFile, str))
     {
         banknote e;
@@ -124,31 +144,189 @@ vector<banknote> readFileIntoBanknote(string path)
     return v;
 }
 
+vector<iris> readFileIntoIris(string path)
+{
+    ifstream inputFile(path);
+    if (!inputFile.is_open())
+    {
+        cout << "failed to open file\n";
+        exit(1);
+    }
+
+    vector<iris> v;
+
+    string out;
+    string str;
+
+    while (getline(inputFile, str))
+    {
+        iris e;
+        istringstream iss(str);
+        string token;
+
+        getline(iss, token, ',');
+        e.slength = stod(token);
+
+        getline(iss, token, ',');
+        e.swidth = stod(token);
+
+        getline(iss, token, ',');
+        e.plength = stod(token);
+
+        getline(iss, token, ',');
+        e.pwidth = stod(token);
+
+        getline(iss, token, ',');
+        e.sFlower = token;
+        if (e.sFlower == "Iris-setosa")
+            e.flower = 0;
+        else
+            e.flower = 1;
+
+        v.push_back(e);
+    }
+    return v;
+}
+
+vector<happyex> readFileIntoHappy(string path)
+{
+    ifstream inputFile(path);
+    if (!inputFile.is_open())
+    {
+        cout << "failed to open file\n";
+        exit(1);
+    }
+
+    //vector<Example> v;
+    vector<happyex> v;
+
+    string out;
+    string str;
+
+    getline(inputFile, str); // skip first line
+
+    while (getline(inputFile, str))
+    {
+        happyex e;
+        int i;
+        istringstream iss(str);
+        string token;
+
+        getline(iss, token, ',');
+        e.happy = stoi(token);
+
+        getline(iss, token, ',');
+        e.information = stoi(token);
+        i = stoi(token);
+
+        getline(iss, token, ',');
+        e.cost = stoi(token);
+
+        getline(iss, token, ',');
+        e.quality = stoi(token);
+
+        getline(iss, token, ',');
+        e.trust = stoi(token);
+
+        getline(iss, token, ',');
+        e.maintenance = stoi(token);
+
+        getline(iss, token, ',');
+        e.social = stoi(token);
+
+        v.push_back(e);
+    }
+    return v;
+}
+
+vector<balloon> readFileIntoBalloon(string path)
+{
+    ifstream inputFile(path);
+    if (!inputFile.is_open())
+    {
+        cout << "failed to open file\n";
+        exit(1);
+    }
+
+    vector<balloon> v;
+
+    string out;
+    string str;
+
+    while (getline(inputFile, str))
+    {
+        balloon e;
+        istringstream iss(str);
+        string token;
+
+        getline(iss, token, ',');
+        if (token == "YELLOW")
+            e.color = 0;
+        else
+            e.color = 1;
+
+        getline(iss, token, ',');
+        if (token == "SMALL")
+            e.size = 0;
+        else
+            e.size = 1;
+
+        getline(iss, token, ',');
+        if (token == "DIP")
+            e.act = 0;
+        else
+            e.act = 1;
+
+        getline(iss, token, ',');
+        if (token == "ADULT")
+            e.age = 0;
+        else
+            e.age = 1;
+
+        getline(iss, token, ',');
+        if (token == "F")
+            e.inflated = 0;
+        else
+            e.inflated = 1;
+
+        v.push_back(e);
+    }
+    return v;
+}
+
 int main()
 {
     string in;
-    cout << "Input type of data (banknote, csection, cars)";
-    cin >> in;
+    cout << "Input type of data (banknote, csection, iris, happy, balloon): ";
+    //cin >> in;
+    in = "balloon";
     cout << "\n";
 
-    //string path = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/caesarian.csv";
-    string path = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.cs";
+    string csectionPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/caesarian.csv";
+    string bankNotePath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/data_banknote_authentication.txt";
+    string irisPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/iris.data";
+    string happyPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/SomervilleHappinessSurvey2015.csv";
+    string balloonPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/balloons/adult+stretch.data";
+
+    //string path = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.cs";
 
 
+    vector<vector<double>> attributes; // input vector
+    vector<int> classifier; // output vector
 
 
     //vector<int> x;
-    vector<vector<int>> attributes; // input vector
-    vector<int> y; // output vector
+    //vector<vector<int>> attributes; // input vector
+    //vector<int> y; // output vector
 
     //cs = readFileIntoCsection(path);
     //bn = readFileIntoBanknote(path);
     
-
+    
     if (in == "csection")
     {
-        vector<csection> cs = readFileIntoCsection(path);
-        vector<int> temp = { 0,0,0,0,0 };
+        vector<csection> cs = readFileIntoCsection(csectionPath);
+        vector<double> temp = { 0,0,0,0,0 };
         for (int i = 0; i < cs.size(); i++)
         {
             //x.push_back(v[i].age);
@@ -158,20 +336,15 @@ int main()
             temp[3] = cs[i].blood;
             temp[4] = cs[i].heart;
             attributes.push_back(temp);
-        }
-
-        // parse into output vector
-        for (int i = 0; i < v.size(); i++)
-        {
-            y.push_back(v[i].csection);
+            // parse into output vector
+            classifier.push_back(cs[i].csection);
         }
     }
-
+    
     else if (in == "banknote")
     {
-        vector<banknote> bn = readFileIntoBanknote(path);
-        vector<double> temp = { 0,0,0,0,0 };
-
+        vector<banknote> bn = readFileIntoBanknote(bankNotePath);
+        vector<double> temp = { 0,0,0,0 };
         for (int i = 0; i < bn.size(); i++)
         {
             //x.push_back(v[i].age);
@@ -179,29 +352,80 @@ int main()
             temp[1] = bn[i].skewness;
             temp[2] = bn[i].curtosis;
             temp[3] = bn[i].entropy;
-
             // need to change attributes to double
             attributes.push_back(temp);
-        }
-
-        // parse into output vector
-        for (int i = 0; i < bn.size(); i++)
-        {
-            // need to change attributes to double
-            y.push_back(stoi(bn[i].truth));
+            // parse into output vector
+            classifier.push_back(bn[i].truth);
         }
     }
 
-    // parse into input vector
-    
+    else if (in == "iris")
+    {
+        vector<iris> ir = readFileIntoIris(irisPath);
+        vector<double> temp = { 0,0,0,0 };
+        for (int i = 0; i < ir.size(); i++)
+        {
+            //x.push_back(v[i].age);
+            temp[0] = ir[i].slength;
+            temp[1] = ir[i].swidth;
+            temp[2] = ir[i].plength;
+            temp[3] = ir[i].pwidth;
+            // need to change attributes to double
+            attributes.push_back(temp);
+            // parse into output vector
+            classifier.push_back(ir[i].flower);
+        }
+    }
+
+    else if (in == "happy")
+    {
+        vector<happyex> hp = readFileIntoHappy(happyPath);
+        vector<double> temp = { 0,0,0,0,0,0 };
+        for (int i = 0; i < hp.size(); i++)
+        {
+            //x.push_back(v[i].age);
+            temp[0] = hp[i].information;
+            temp[1] = hp[i].cost;
+            temp[2] = hp[i].quality;
+            temp[3] = hp[i].trust;
+            temp[4] = hp[i].maintenance;
+            temp[5] = hp[i].social;
+            // need to change attributes to double
+            attributes.push_back(temp);
+            // parse into output vector
+            classifier.push_back(hp[i].happy);
+        }
+    }
+
+    else if (in == "balloon")
+    {
+        vector<balloon> bp = readFileIntoBalloon(balloonPath);
+        vector<double> temp = { 0,0,0,0 };
+        for (int i = 0; i < bp.size(); i++)
+        {
+            //x.push_back(v[i].age);
+            temp[0] = bp[i].color;
+            temp[1] = bp[i].size;
+            temp[2] = bp[i].act;
+            temp[3] = bp[i].age;
+            // need to change attributes to double
+            attributes.push_back(temp);
+            // parse into output vector
+            classifier.push_back(bp[i].inflated);
+        }
+    }
 
     PLA model;
 
-    model.loadData(attributes, y);
+    model.loadData(attributes, classifier);
 
-    int epochs = 10;
-    double eta = 0.2;
+    int epochs = 1000;
+    double eta = 0.1;
     model.runModel(epochs, eta);
+
+
+
+    // parse into input vector
 
    // model.optimizeModel(1, 10, 0.05, 0.5);
 
