@@ -643,24 +643,26 @@ vector<house> readFileIntoHouse(string path)
 int main()
 {
     // Julio Paths
-    //string csectionPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/caesarian.csv";
-    //string bankNotePath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/data_banknote_authentication.txt";
-    //string irisPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/iris.data";
-    //string happyPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/SomervilleHappinessSurvey2015.csv";
-    //string balloonPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/balloons/adult+stretch.data";
-    //string tttPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/tic-tac-toe.data";
-    //string habermanPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/haberman.data";
-    //string housePath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/house-votes-84.data";
+    string csectionPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/caesarian.csv";
+    string bankNotePath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/data_banknote_authentication.txt";
+    string irisPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/iris.data";
+    string happyPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/SomervilleHappinessSurvey2015.csv";
+    string balloonPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/balloons/adult+stretch.data";
+    string tttPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/tic-tac-toe.data";
+    string habermanPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/haberman.data";
+    string housePath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/house-votes-84.data";
+    string skinPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/Skin_NonSkin.txt";
 
     // Lia Paths
-    string csectionPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.csv";
-    string bankNotePath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/data_banknote_authentication.txt";
-    string irisPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/iris.data";
-    string happyPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/SomervilleHappinessSurvey2015.csv";
-    string balloonPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/balloons/adult+stretch.data";
-    string tttPath = "C:/Users/julio/Amelia/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/tic-tac-toe.data";
-    string habermanPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/haberman.data";
-    string housePath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/house-votes-84.data";
+    //string csectionPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.csv";
+    //string bankNotePath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/data_banknote_authentication.txt";
+    //string irisPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/iris.data";
+    //string happyPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/SomervilleHappinessSurvey2015.csv";
+    //string balloonPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/balloons/adult+stretch.data";
+    //string tttPath = "C:/Users/julio/Amelia/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/tic-tac-toe.data";
+    //string habermanPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/haberman.data";
+    //string housePath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/house-votes-84.data";
+    //string skinPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/Skin_NonSkin.txt";
 
     vector<vector<double>> attributes; // input vector
     vector<int> classifier; // output vector
@@ -688,11 +690,6 @@ int main()
                 temp[3] = cs[i].blood;
                 temp[4] = cs[i].heart;
                 attributes.push_back(temp);
-            }
-
-            // parse into output vector
-            for (int i = 0; i < cs.size(); i++)
-            {
                 classifier.push_back(cs[i].csection);
             }
         }
@@ -703,26 +700,18 @@ int main()
             vector<double> temp = {
                 0, //attribute 1
                 0, //attribute 2
-                //0, //attribute 3
-                //0, //attribute 4
+                0, //attribute 3
+                0, //attribute 4
             };
 
             for (int i = 0; i < bn.size(); i++)
             {
                 temp[0] = bn[i].variance;
                 temp[1] = bn[i].skewness;
-                //temp[2] = bn[i].curtosis;
-                //temp[3] = bn[i].entropy;
-
+                temp[2] = bn[i].curtosis;
+                temp[3] = bn[i].entropy;
                 // need to change attributes to double
                 attributes.push_back(temp);
-
-            }
-
-            // parse into output vector
-            for (int i = 0; i < bn.size(); i++)
-            {
-                // need to change attributes to double
                 classifier.push_back(bn[i].truth);
             }
         }
@@ -852,6 +841,24 @@ int main()
                 classifier.push_back(hs[i].party);
             }
         }
+
+        else if (in == "skin")
+        {
+            vector<skin> sk = readFileIntoSkin(skinPath);
+            vector<double> temp = { 0,0,0 };
+            for (int i = 0; i < sk.size(); i++)
+            {
+                //x.push_back(v[i].age);
+                temp[0] = sk[i].R;
+                temp[1] = sk[i].G;
+                temp[2] = sk[i].B;
+                // need to change attributes to double
+                attributes.push_back(temp);
+                // parse into output vector
+                classifier.push_back(sk[i].skin);
+            }
+        }
+
 
         else {
             cout << in << " is not a valid input\n";
