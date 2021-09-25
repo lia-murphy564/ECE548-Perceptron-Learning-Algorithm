@@ -570,8 +570,6 @@ vector<banknote> readFileIntoBanknote(string path)
     string out;
     string str;
 
-    getline(inputFile, str); // skip first line
-
     while (getline(inputFile, str))
     {
         banknote e;
@@ -592,6 +590,156 @@ vector<banknote> readFileIntoBanknote(string path)
 
         getline(iss, token, ',');
         e.truth = stoi(token);
+
+        v.push_back(e);
+    }
+    return v;
+}
+
+vector<iris> readFileIntoIris(string path)
+{
+    ifstream inputFile(path);
+    if (!inputFile.is_open())
+    {
+        cout << "failed to open file\n";
+        exit(1);
+    }
+
+    vector<iris> v;
+
+    string out;
+    string str;
+
+    while (getline(inputFile, str))
+    {
+        iris e;
+        istringstream iss(str);
+        string token;
+
+        getline(iss, token, ',');
+        e.slength = stod(token);
+
+        getline(iss, token, ',');
+        e.swidth = stod(token);
+
+        getline(iss, token, ',');
+        e.plength = stod(token);
+
+        getline(iss, token, ',');
+        e.pwidth = stod(token);
+
+        getline(iss, token, ',');
+        e.sFlower = token;
+        if (e.sFlower == "Iris-setosa")
+            e.flower = 0;
+        else
+            e.flower = 1;
+
+        v.push_back(e);
+    }
+    return v;
+}
+
+vector<happyex> readFileIntoHappy(string path)
+{
+    ifstream inputFile(path);
+    if (!inputFile.is_open())
+    {
+        cout << "failed to open file\n";
+        exit(1);
+    }
+
+    //vector<Example> v;
+    vector<happyex> v;
+
+    string out;
+    string str;
+
+    getline(inputFile, str); // skip first line
+
+    while (getline(inputFile, str))
+    {
+        happyex e;
+        int i;
+        istringstream iss(str);
+        string token;
+
+        getline(iss, token, ',');
+        e.happy = stoi(token);
+
+        getline(iss, token, ',');
+        e.information = stoi(token);
+        i = stoi(token);
+
+        getline(iss, token, ',');
+        e.cost = stoi(token);
+
+        getline(iss, token, ',');
+        e.quality = stoi(token);
+
+        getline(iss, token, ',');
+        e.trust = stoi(token);
+
+        getline(iss, token, ',');
+        e.maintenance = stoi(token);
+
+        getline(iss, token, ',');
+        e.social = stoi(token);
+
+        v.push_back(e);
+    }
+    return v;
+}
+
+vector<balloon> readFileIntoBalloon(string path)
+{
+    ifstream inputFile(path);
+    if (!inputFile.is_open())
+    {
+        cout << "failed to open file\n";
+        exit(1);
+    }
+
+    vector<balloon> v;
+
+    string out;
+    string str;
+
+    while (getline(inputFile, str))
+    {
+        balloon e;
+        istringstream iss(str);
+        string token;
+
+        getline(iss, token, ',');
+        if (token == "YELLOW")
+            e.color = 0;
+        else
+            e.color = 1;
+
+        getline(iss, token, ',');
+        if (token == "SMALL")
+            e.size = 0;
+        else
+            e.size = 1;
+
+        getline(iss, token, ',');
+        if (token == "DIP")
+            e.act = 0;
+        else
+            e.act = 1;
+
+        getline(iss, token, ',');
+        if (token == "ADULT")
+            e.age = 0;
+        else
+            e.age = 1;
+
+        getline(iss, token, ',');
+        if (token == "F")
+            e.inflated = 0;
+        else
+            e.inflated = 1;
 
         v.push_back(e);
     }

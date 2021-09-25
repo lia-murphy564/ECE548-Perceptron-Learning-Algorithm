@@ -149,7 +149,7 @@ void PLA::optimizeModel(int epoch_min, int epoch_max, double eta_min, double eta
 	cout << "Model optimized at (epochs=" << epochs << ", eta=" << eta << ") \n";
 	cout << "Percent Guessed = " << pctGuessed << " % \n";
 }
-
+*/
 int PLA::sign(double x) //activation function
 {
 	if (x > 0)
@@ -184,7 +184,7 @@ void PLA::loadData(vector<vector<double>> _x, vector<int> _y)
 double PLA::DotProduct(vector<double> x, vector<double> y) {
 	double res = 0;
 	for (int i = 0; i < x.size(); i++) {
-		res += x[i] * (double)y[i];
+		res += x[i] * y[i];
 	}
 	return res;
 }
