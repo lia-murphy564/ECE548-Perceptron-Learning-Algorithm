@@ -32,8 +32,6 @@ protected:
 public:
 	PLA(); // constructor
 
-	//void loadData(vector<vector<int>> _x, vector<int> y);
-
 	void loadData(vector<vector<double>> _x, vector<int> y);
 
 	void setLearningRate(double n);
@@ -42,24 +40,22 @@ public:
 
 	void updateWeights();
 
-	void runModel(int epochs, double learningRate);
+	double runModel(int epochs, double learningRate);
 
-	void classifyData();
+	double classifyData();
 
-	//void classifyData();
-
-	void optimizeModel(int epoch_min, int epoch_max, double eta_min, double eta_max);
+	void optimizeModel(int epoch_min, int epoch_max, double eta_min, double eta_max, double eta_interval);
 
 	//int hypothesis(vector<int> vec);
 	int sign(double x);
 
 	int hypothesis(vector<double> train);
 
-	void modifyWeights(vector<int> train, vector<int> test);
+	//void modifyWeights(vector<int> train, vector<int> test);
 
-	void doTrain(vector<int> train, int target);
+	//void doTrain(vector<int> train, int target);
 
-	void classify(vector<int> input);
+	//void classify(vector<int> input);
 
 	double DotProduct(vector<double> x, vector<double> y);
 };
