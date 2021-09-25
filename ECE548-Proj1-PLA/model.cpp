@@ -56,11 +56,11 @@ void PLA::updateWeights()
 	{
 		if (weights.size() < attributes[0].size()) {
 			double rand = fRand(-1, 1);
-			weights.push_back(rand);
+			weights.push_back(0);
 		}
 		else {
 			double rand = fRand(-1, 1);
-			weights[i] = rand;
+			weights[i] = 0;
 		}
 	}
 
@@ -125,7 +125,6 @@ double PLA::classifyData() {
 void PLA::optimizeModel(int epoch_min, int epoch_max, double eta_min, double eta_max, double eta_interval)
 {
 	//PLA::runModel(1, 0.5); // base run to generate output vectors
-
 	int amtCorrect = 0;
 	double pctGuessed = 0.0;
 	int epochs = 0;

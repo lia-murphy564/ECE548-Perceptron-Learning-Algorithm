@@ -55,6 +55,17 @@ struct balloon {
     int color, size, act, age, inflated;
 };
 
+struct ttt {
+    int tl, tm, tr, ml, mm, mr, bl, bm, br, cla;
+};
+
+struct haberman {
+    int age, year, num, sur;
+};
+
+struct house {
+    int party, one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen;
+};
 
 vector<csection> readFileIntoCsection(string path)
 {
@@ -293,10 +304,302 @@ vector<balloon> readFileIntoBalloon(string path)
     return v;
 }
 
+vector<ttt> readFileIntoTTT(string path)
+{
+    ifstream inputFile(path);
+    if (!inputFile.is_open())
+    {
+        cout << "failed to open file\n";
+        exit(1);
+    }
+
+    vector<ttt> v;
+
+    string out;
+    string str;
+
+    while (getline(inputFile, str))
+    {
+        ttt e;
+        istringstream iss(str);
+        string token;
+
+        getline(iss, token, ',');
+        if (token == "x")
+            e.tl = 1;
+        else if (token == "o")
+            e.tl = 2;
+        else
+            e.tl = 3;
+
+        getline(iss, token, ',');
+        if (token == "x")
+            e.tm = 1;
+        else if (token == "o")
+            e.tm = 2;
+        else
+            e.tm = 3;
+
+        getline(iss, token, ',');
+        if (token == "x")
+            e.tr = 1;
+        else if (token == "o")
+            e.tr = 2;
+        else
+            e.tr = 3;
+
+        getline(iss, token, ',');
+        if (token == "x")
+            e.ml = 1;
+        else if (token == "o")
+            e.ml = 2;
+        else
+            e.ml = 3;
+
+        getline(iss, token, ',');
+        if (token == "x")
+            e.mm = 1;
+        else if (token == "o")
+            e.mm = 2;
+        else
+            e.mm = 3;
+
+        getline(iss, token, ',');
+        if (token == "x")
+            e.mr = 1;
+        else if (token == "o")
+            e.mr = 2;
+        else
+            e.mr = 3;
+
+        getline(iss, token, ',');
+        if (token == "x")
+            e.bl = 1;
+        else if (token == "o")
+            e.bl = 2;
+        else
+            e.bl = 3;
+
+        getline(iss, token, ',');
+        if (token == "x")
+            e.bm = 1;
+        else if (token == "o")
+            e.bm = 2;
+        else
+            e.bm = 3;
+
+        getline(iss, token, ',');
+        if (token == "x")
+            e.br = 1;
+        else if (token == "o")
+            e.br = 2;
+        else
+            e.br = 3;
+
+        getline(iss, token, ',');
+        if (token == "positive")
+            e.cla = 1;
+        else
+            e.cla = 0;
+
+        v.push_back(e);
+    }
+    return v;
+}
+
+vector<haberman> readFileIntoHaberman(string path)
+{
+    ifstream inputFile(path);
+    if (!inputFile.is_open())
+    {
+        cout << "failed to open file\n";
+        exit(1);
+    }
+
+    vector<haberman> v;
+
+    string out;
+    string str;
+
+    while (getline(inputFile, str))
+    {
+        haberman e;
+        istringstream iss(str);
+        string token;
+
+        getline(iss, token, ',');
+        e.age = stoi(token);
+
+        getline(iss, token, ',');
+        e.year = stoi(token);
+
+        getline(iss, token, ',');
+        e.num = stoi(token);
+
+        getline(iss, token, ',');
+        e.sur = stoi(token);
+
+        v.push_back(e);
+    }
+    return v;
+}
+
+vector<house> readFileIntoHouse(string path)
+{
+    ifstream inputFile(path);
+    if (!inputFile.is_open())
+    {
+        cout << "failed to open file\n";
+        exit(1);
+    }
+
+    vector<house> v;
+
+    string out;
+    string str;
+
+    while (getline(inputFile, str))
+    {
+        house e;
+        istringstream iss(str);
+        string token;
+
+        getline(iss, token, ',');
+        if (token == "republican")
+            e.party = 1;
+        else
+            e.party = 0;
+
+        getline(iss, token, ',');
+        if (token == "y")
+            e.one = 2;
+        else if (token == "n")
+            e.one = 1;
+        else
+            e.one = 0;
+
+        getline(iss, token, ',');
+        if (token == "y")
+            e.two = 2;
+        else if (token == "n")
+            e.three = 1;
+        else
+            e.three = 0;
+
+        getline(iss, token, ',');
+        if (token == "y")
+            e.four = 2;
+        else if (token == "n")
+            e.four = 1;
+        else
+            e.four = 0;
+
+        getline(iss, token, ',');
+        if (token == "y")
+            e.five = 2;
+        else if (token == "n")
+            e.five = 1;
+        else
+            e.five = 0;
+
+        getline(iss, token, ',');
+        if (token == "y")
+            e.six = 2;
+        else if (token == "n")
+            e.six = 1;
+        else
+            e.six = 0;
+
+        getline(iss, token, ',');
+        if (token == "y")
+            e.seven = 2;
+        else if (token == "n")
+            e.seven = 1;
+        else
+            e.seven = 0;
+
+        getline(iss, token, ',');
+        if (token == "y")
+            e.eight = 2;
+        else if (token == "n")
+            e.eight = 1;
+        else
+            e.eight = 0;
+
+        getline(iss, token, ',');
+        if (token == "y")
+            e.nine = 2;
+        else if (token == "n")
+            e.nine = 1;
+        else
+            e.nine = 0;
+
+        getline(iss, token, ',');
+        if (token == "y")
+            e.ten = 2;
+        else if (token == "n")
+            e.ten = 1;
+        else
+            e.ten = 0;
+
+        getline(iss, token, ',');
+        if (token == "y")
+            e.eleven = 2;
+        else if (token == "n")
+            e.eleven = 1;
+        else
+            e.eleven = 0;
+
+        getline(iss, token, ',');
+        if (token == "y")
+            e.twelve = 2;
+        else if (token == "n")
+            e.twelve = 1;
+        else
+            e.twelve = 0;
+
+        getline(iss, token, ',');
+        if (token == "y")
+            e.thirteen = 2;
+        else if (token == "n")
+            e.thirteen = 1;
+        else
+            e.thirteen = 0;
+
+        getline(iss, token, ',');
+        if (token == "y")
+            e.fourteen = 2;
+        else if (token == "n")
+            e.fourteen = 1;
+        else
+            e.fourteen = 0;
+
+        getline(iss, token, ',');
+        if (token == "y")
+            e.fifteen = 2;
+        else if (token == "n")
+            e.fifteen = 1;
+        else
+            e.fifteen = 0;
+
+        getline(iss, token, ',');
+        if (token == "y")
+            e.sixteen = 2;
+        else if (token == "n")
+            e.sixteen = 1;
+        else
+            e.sixteen = 0;
+
+        v.push_back(e);
+
+    }
+    return v;
+}
+
 int main()
 {
     string in;
-    cout << "Input type of data (banknote, csection, iris, happy, balloon): ";
+    cout << "Input type of data (banknote, csection, iris, happy, balloon, ttt, haberman, house): ";
     cin >> in;
     //in = "iris";
     cout << "\n";
@@ -306,6 +609,9 @@ int main()
     string irisPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/iris.data";
     string happyPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/SomervilleHappinessSurvey2015.csv";
     string balloonPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/balloons/adult+stretch.data";
+    string tttPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/tic-tac-toe.data";
+    string habermanPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/haberman.data";
+    string housePath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/house-votes-84.data";
 
     //string path = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.cs";
 
@@ -413,6 +719,77 @@ int main()
             classifier.push_back(bp[i].inflated);
         }
     }
+
+    else if (in == "ttt")
+    {
+        vector<ttt> tt = readFileIntoTTT(tttPath);
+        vector<double> temp = { 0,0,0,0,0,0,0,0,0 };
+        for (int i = 0; i < tt.size(); i++)
+        {
+            //x.push_back(v[i].age);
+            temp[0] = tt[i].tl;
+            temp[1] = tt[i].tm;
+            temp[2] = tt[i].tr;
+            temp[3] = tt[i].ml;
+            temp[4] = tt[i].mm;
+            temp[5] = tt[i].mr;
+            temp[6] = tt[i].bl;
+            temp[7] = tt[i].bm;
+            temp[8] = tt[i].br;
+            // need to change attributes to double
+            attributes.push_back(temp);
+            // parse into output vector
+            classifier.push_back(tt[i].cla);
+        }
+    }
+
+    else if (in == "haberman")
+    {
+        vector<haberman> hm = readFileIntoHaberman(habermanPath);
+        vector<double> temp = { 0,0,0 };
+        for (int i = 0; i < hm.size(); i++)
+        {
+            //x.push_back(v[i].age);
+            temp[0] = hm[i].age;
+            temp[1] = hm[i].year;
+            temp[2] = hm[i].num;
+            // need to change attributes to double
+            attributes.push_back(temp);
+            // parse into output vector
+            classifier.push_back(hm[i].sur);
+        }
+    }
+
+    else if (in == "house")
+    {
+        vector<house> hs = readFileIntoHouse(housePath);
+        vector<double> temp = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+        for (int i = 0; i < hs.size(); i++)
+        {
+            //x.push_back(v[i].age);
+            temp[0] = hs[i].one;
+            temp[1] = hs[i].two;
+            temp[2] = hs[i].three;
+            temp[3] = hs[i].four;
+            temp[4] = hs[i].five;
+            temp[5] = hs[i].six;
+            temp[6] = hs[i].seven;
+            temp[7] = hs[i].eight;
+            temp[8] = hs[i].nine;
+            temp[9] = hs[i].ten;
+            temp[10] = hs[i].eleven;
+            temp[11] = hs[i].twelve;
+            temp[12] = hs[i].thirteen;
+            temp[13] = hs[i].fourteen;
+            temp[14] = hs[i].fifteen;
+            temp[15] = hs[i].sixteen;
+            // need to change attributes to double
+            attributes.push_back(temp);
+            // parse into output vector
+            classifier.push_back(hs[i].party);
+        }
+    }
+
     else {
         cout << in << " is not a valid input\n";
         exit(0);
@@ -422,10 +799,10 @@ int main()
 
     model.loadData(attributes, classifier);
 
-    int epochs = 100;
+    int epochs = 10;
     double eta = 0.6;
     //model.runModel(epochs, eta);
-    model.optimizeModel(1, 10, 0.1, 0.9, 0.01);
+    model.optimizeModel(1, 10, 0.1, 0.9, 0.1);
 
 
 
