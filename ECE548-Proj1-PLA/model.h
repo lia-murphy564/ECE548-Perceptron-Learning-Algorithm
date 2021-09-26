@@ -28,6 +28,8 @@ protected:
 	vector<int> y;
 	vector<vector<double>> attributes;
 
+	vector<double> pctGuessedVec;
+
 
 public:
 	PLA(); // constructor
@@ -52,6 +54,25 @@ public:
 	int hypothesis(vector<double> train);
 
 	double DotProduct(vector<double> x, vector<double> y);
+
+	void outputPctVsEpochs(string path)
+	{
+		std::ofstream of;
+		of.open(path);
+		of << "Epochs, PctGuessed\n";
+		for (int i = 0; i < epochs; i++)
+		{
+			of << i + 1 << ',' << pctGuessedVec[i] << endl;
+		}
+	}
+
+	//void clearData()
+	//{
+	//	weights.clear();
+	//	attributes.clear();
+	//	y.clear();
+	//	pctGuessedVec.clear();
+	//}
 };
 
 
