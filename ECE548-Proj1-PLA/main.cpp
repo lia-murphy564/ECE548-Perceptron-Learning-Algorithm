@@ -67,6 +67,252 @@ struct house {
     int party, one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen;
 };
 
+struct skin {
+    int R, G, B, skin;
+};
+
+struct  wilt {
+    int dis;
+    double one, two, three, four, five;
+};
+
+struct  cancer {
+    int rec, one, two, three, four, five, six, seven, eight, nine;
+};
+
+vector<cancer> readFileIntoCancer(string path)
+{
+    ifstream inputFile(path);
+    if (!inputFile.is_open())
+    {
+        cout << "failed to open file\n";
+        exit(1);
+    }
+
+    vector<cancer> v;
+
+    string out;
+    string str;
+
+    while (getline(inputFile, str))
+    {
+        cancer e;
+        istringstream iss(str);
+        string token;
+
+        getline(iss, token, ',');
+        if (token == "recurrence-events")
+            e.rec = 1;
+        else
+            e.rec = 0;
+
+        getline(iss, token, ',');
+        if (token == "10-19")
+            e.one = 1;
+        else if (token == "20-29")
+            e.one = 2;
+        else if (token == "30-39")
+            e.one = 3;
+        else if (token == "40-49")
+            e.one = 4;
+        else if (token == "50-59")
+            e.one = 5;
+        else if (token == "60-69")
+            e.one = 6;
+        else if (token == "70-79")
+            e.one = 7;
+        else if (token == "80-89")
+            e.one = 8;
+        else
+            e.one = 9;
+
+        getline(iss, token, ',');
+        if (token == "lt40")
+            e.two = 1;
+        else if (token == "ge40")
+            e.two = 2;
+        else
+            e.two = 3;
+
+        getline(iss, token, ',');
+        if (token == "0-4")
+            e.three = 1;
+        else if (token == "5-9")
+            e.three = 2;
+        else if (token == "10-14")
+            e.three = 3;
+        else if (token == "15-19")
+            e.three = 4;
+        else if (token == "20-24")
+            e.three = 5;
+        else if (token == "25-29")
+            e.three = 6;
+        else if (token == "30-34")
+            e.three = 7;
+        else if (token == "35-39")
+            e.three = 8;
+        else if (token == "40-44")
+            e.three = 9;
+        else if (token == "45-49")
+            e.three = 10;
+        else if (token == "50-54")
+            e.three = 11;
+        else
+            e.three = 12;
+
+        getline(iss, token, ',');
+        if (token == "0-2")
+            e.four = 1;
+        else if (token == "3-5")
+            e.four = 2;
+        else if (token == "6-8")
+            e.four = 3;
+        else if (token == "9-11")
+            e.four = 4;
+        else if (token == "12-14")
+            e.four = 5;
+        else if (token == "15-17")
+            e.four = 6;
+        else if (token == "18-20")
+            e.four = 7;
+        else if (token == "21-23")
+            e.four = 8;
+        else if (token == "24-26")
+            e.four = 9;
+        else if (token == "27-29")
+            e.four = 10;
+        else if (token == "30-32")
+            e.four = 11;
+        else if (token == "33-35")
+            e.four = 12;
+        else
+            e.four = 13;
+
+        getline(iss, token, ',');
+        if (token == "yes")
+            e.five = 2;
+        else
+            e.five = 1;
+
+        getline(iss, token, ',');
+        e.six = stoi(token);
+
+        getline(iss, token, ',');
+        if (token == "left")
+            e.seven = 1;
+        else
+            e.seven = 2;
+
+        getline(iss, token, ',');
+        if (token == "left-up")
+            e.eight = 1;
+        else if (token == "left-low")
+            e.eight = 2;
+        else if (token == "right-up")
+            e.eight = 3;
+        else if (token == "right-low")
+            e.eight = 4;
+        else
+            e.eight = 5;
+
+        getline(iss, token, ',');
+        if (token == "no")
+            e.nine = 0;
+        else
+            e.nine = 1;
+
+        v.push_back(e);
+    }
+    return v;
+}
+
+vector<wilt> readFileIntoWilt(string path)
+{
+    ifstream inputFile(path);
+    if (!inputFile.is_open())
+    {
+        cout << "failed to open file\n";
+        exit(1);
+    }
+
+    vector<wilt> v;
+
+    string out;
+    string str;
+
+    getline(inputFile, str); // skip first line
+
+    while (getline(inputFile, str))
+    {
+        wilt e;
+        istringstream iss(str);
+        string token;
+
+        getline(iss, token, ',');
+        if (token == "w")
+            e.dis = 0;
+        else
+            e.dis = 1;
+
+        getline(iss, token, ',');
+        e.one = stod(token);
+
+        getline(iss, token, ',');
+        e.two = stod(token);
+
+        getline(iss, token, ',');
+        e.three = stod(token);
+
+        getline(iss, token, ',');
+        e.four = stod(token);
+
+        getline(iss, token, ',');
+        e.five = stod(token);
+
+        v.push_back(e);
+    }
+    return v;
+}
+
+vector<skin> readFileIntoSkin(string path)
+{
+    ifstream inputFile(path);
+    if (!inputFile.is_open())
+    {
+        cout << "failed to open file\n";
+        exit(1);
+    }
+
+    vector<skin> v;
+
+    string out;
+    string str;
+
+    while (getline(inputFile, str))
+    {
+        skin e;
+        istringstream iss(str);
+        string token;
+
+        getline(iss, token, ',');
+        e.R = stoi(token);
+
+        getline(iss, token, ',');
+        e.G = stoi(token);
+
+        getline(iss, token, ',');
+        e.B = stoi(token);
+
+        getline(iss, token, ',');
+        if (token == "2")
+            e.skin = 0;
+        else
+            e.skin = 1;
+
+        v.push_back(e);
+    }
+    return v;
+}
 
 vector<csection> readFileIntoCsection(string path)
 {
@@ -600,16 +846,20 @@ vector<house> readFileIntoHouse(string path)
 int main()
 {
     // Julio Paths
-    //string csectionPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/caesarian.csv";
-    //string bankNotePath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/data_banknote_authentication.txt";
-    //string irisPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/iris.data";
-    //string happyPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/SomervilleHappinessSurvey2015.csv";
-    //string balloonPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/balloons/adult+stretch.data";
-    //string tttPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/tic-tac-toe.data";
-    //string habermanPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/haberman.data";
-    //string housePath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/house-votes-84.data";
+    string csectionPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/caesarian.csv";
+    string bankNotePath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/data_banknote_authentication.txt";
+    string irisPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/iris.data";
+    string happyPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/SomervilleHappinessSurvey2015.csv";
+    string balloonPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/balloons/adult+stretch.data";
+    string tttPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/tic-tac-toe.data";
+    string habermanPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/haberman.data";
+    string housePath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/house-votes-84.data";
+    string skinPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/Skin_NonSkin.txt";
+    string wiltPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/wilttraining.csv";
+    string cancerPath = "C:/Users/julio/source/repos/ECE548-Perception-Learning-Algorithm/ECE548-Proj1-PLA/breast-cancer.data";
 
     // Lia Paths
+
     string csectionPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/caesarian.csv";
     string bankNotePath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/data_banknote_authentication.txt";
     string irisPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/iris.data";
@@ -619,6 +869,7 @@ int main()
     string habermanPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/haberman.data";
     string housePath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/house-votes-84.data";
 
+
     vector<vector<double>> attributes; // input vector
     vector<int> classifier; // output vector
 
@@ -627,7 +878,7 @@ int main()
         string in;
         int epochs;
         double eta;
-        cout << "Input type of data(banknote, csection, iris, happy, balloon, ttt, haberman, house): ";  cin >> in;
+        cout << "Input type of data(banknote, csection, iris, happy, balloon, ttt, haberman, house, skin, wilt, cancer): ";  cin >> in;
         cout << "Enter epochs: "; cin >> epochs;
         cout << "Enter learning rate: "; cin >> eta;
 
@@ -644,11 +895,6 @@ int main()
                 temp[3] = cs[i].blood;
                 temp[4] = cs[i].heart;
                 attributes.push_back(temp);
-            }
-
-            // parse into output vector
-            for (int i = 0; i < cs.size(); i++)
-            {
                 classifier.push_back(cs[i].csection);
             }
         }
@@ -670,7 +916,6 @@ int main()
                 temp[2] = bn[i].curtosis;
                 temp[3] = bn[i].entropy;
 
-                // need to change attributes to double
                 attributes.push_back(temp);
 
                 classifier.push_back(bn[i].truth);
@@ -803,6 +1048,65 @@ int main()
             }
         }
 
+        else if (in == "skin")
+        {
+            vector<skin> sk = readFileIntoSkin(skinPath);
+            vector<double> temp = { 0,0,0 };
+            for (int i = 0; i < sk.size(); i += 1000)
+            {
+                //x.push_back(v[i].age);
+                temp[0] = sk[i].R;
+                temp[1] = sk[i].G;
+                temp[2] = sk[i].B;
+                // need to change attributes to double
+                attributes.push_back(temp);
+                // parse into output vector
+                classifier.push_back(sk[i].skin);
+            }
+        }
+
+        else if (in == "wilt")
+        {
+            vector<wilt> wp = readFileIntoWilt (wiltPath);
+            vector<double> temp = { 0,0,0,0,0 };
+            for (int i = 0; i < wp.size(); i++)
+            {
+                //x.push_back(v[i].age);
+                temp[0] = wp[i].one;
+                temp[1] = wp[i].two;
+                temp[2] = wp[i].three;
+                temp[3] = wp[i].four;
+                temp[4] = wp[i].five;
+                // need to change attributes to double
+                attributes.push_back(temp);
+                // parse into output vector
+                classifier.push_back(wp[i].dis);
+            }
+        }
+
+        else if (in == "cancer")
+        {
+            vector<cancer> cn = readFileIntoCancer(cancerPath);
+            vector<double> temp = { 0,0,0,0,0,0,0,0,0 };
+            for (int i = 0; i < cn.size(); i++)
+            {
+                //x.push_back(v[i].age);
+                temp[0] = cn[i].one;
+                temp[1] = cn[i].two;
+                temp[2] = cn[i].three;
+                temp[3] = cn[i].four;
+                temp[4] = cn[i].five;
+                temp[5] = cn[i].six;
+                temp[6] = cn[i].seven;
+                temp[7] = cn[i].eight;
+                temp[8] = cn[i].nine;
+                // need to change attributes to double
+                attributes.push_back(temp);
+                // parse into output vector
+                classifier.push_back(cn[i].rec);
+            }
+        }
+
         else {
             cout << in << " is not a valid input\n";
             exit(1);
@@ -831,50 +1135,6 @@ int main()
 
 //        model.clearData();        
         //model.optimizeModel(1, 10, 0.05, 0.5);
+
     }
-        
-    
-   
-
-    //for (int i = 1; i <= 20; i++)
-    //{
-    //    for (double j = 0.05; j < 0.2; j += 0.01)
-    //    {
-    //        cout << "epochs = " << i << "  eta = " << j << " ";
-    //        model.runModel(i, j);
-    //    }
-    //}
-
-
-    //model.runModel(25, 0.1);
-
-    //for (int i = 0; i < v.size(); i++)
-    //{
-    //    cout << "Age: " << x[i] << " | Csection " << y[i] << "\n";
-    //}
-
-    //cout << "x size = " << x.size() << "\n";
-
-    //for (int i = 0; i < v.size(); i++)
-    //{
-    //    if (i < v.size() / 2)
-    //        train.push_back(v[i]);
-    //    else
-    //        test.push_back(v[i]);
-    //}
-
-    //cout << "v size = " << v.size() << "\n";
-    //cout << "train size = " << train.size() << "\n";
-    //cout << "test size = " << test.size() << "\n";
-
-
-
-
-    //model.loadData(x., y);
-
-    //cmodel.runModel(20, 0.1);
-
-    //for (int i = 0; i < v.size(); i++)
-    //    cout << v[i].id << ' ' << v[i].age << ' ' << v[i].deliveryNum << ' ' << v[i].deliveryType << ' ' << v[i].blood << ' '
-    //    << v[i].heart << ' ' << v[i].csection << '\n';
 }
