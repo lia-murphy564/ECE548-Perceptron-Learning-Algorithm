@@ -65,31 +65,30 @@ void PLA::updateWeights()
 		}
 	}
 
+	cout << "Percent Guessed = " << PLA::classifyData() << " % \n";
+
 	// Iterate through epochs and calculate weights
 	for (int i = 0; i < epochs; i++)
 	{
 		//cout << "\n\n" << "----- Epoch: " << i << " ----- " << "\n";
 		//cout << "Example: " << train[i] << " | ";
 		//cout << "Hypothesis: " << hypothesis(train) << " | ";
-
+		int k = 0;
 		for (int i = 0; i < attributes.size(); i++)
 		{
 			int h = hypothesis(attributes[i]);
 			int error = y[i] - h;
-			if (error != 0)
-			{
+
+			if (error != 0) {
 				for (int j = 0; j < weights.size(); j++) {
 					weights[j] += (error * learningRate) * attributes[i][j];
 				}
+				k++;
 			}
 
-
-			//weights[i] += error * train[i] * learningRate;
-			//cout << i << "   Example: " << x[i];
-			//cout << "   Hypothesis: " << h;
-			//cout << "   Output: " << y[i];
-			//cout << "   Weight: " << weights[i] << "\n";
 		}
+		cout << "Number of misclassified attributes: " << k << endl;
+
 
 		/*cout << "Epoch: " << i << endl;
 		for (int i = 0; i < weights.size(); i++) {
@@ -130,10 +129,6 @@ double PLA::classifyData() {
 	for (int i = 0; i < attributes.size(); i++)
 	{
 		int result = hypothesis(attributes[i]);
-		if (result > 0)
-			result = 1;
-		else
-			result = 0;
 
 		if (result == y[i])
 			amtCorrect += 1;
