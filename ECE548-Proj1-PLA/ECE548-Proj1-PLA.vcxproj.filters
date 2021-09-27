@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Data Descriptions">
-      <UniqueIdentifier>{228043a8-f0b8-47da-b918-ee725969dba2}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -34,28 +31,42 @@
     <None Include="caesarian.csv">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\..\..\..\Documents\ECE 518 ML\imports-85.names">
-      <Filter>Data Descriptions</Filter>
-    </None>
-    <None Include="..\..\..\..\Documents\ECE 518 ML\tic-tac-toe.names">
-      <Filter>Data Descriptions</Filter>
-    </None>
     <None Include="..\..\..\..\Documents\ECE 518 ML\imports-85.data">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="..\..\..\..\Documents\ECE 518 ML\tic-tac-toe.data">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="haberman.data" />
-    <None Include="haberman.names" />
-    <None Include="house-votes-84.data" />
-    <None Include="house-votes-84.names" />
-    <None Include="imports-85.data" />
-    <None Include="imports-85.names" />
-    <None Include="iris.data" />
-    <None Include="SomervilleHappinessSurvey2015.csv" />
-    <None Include="tic-tac-toe.data" />
-    <None Include="tic-tac-toe.names" />
+    <None Include="haberman.data">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="haberman.names">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="house-votes-84.data">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="house-votes-84.names">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="imports-85.data">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="imports-85.names">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="iris.data">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="SomervilleHappinessSurvey2015.csv">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="tic-tac-toe.data">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="tic-tac-toe.names">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="data_banknote_authentication.txt">

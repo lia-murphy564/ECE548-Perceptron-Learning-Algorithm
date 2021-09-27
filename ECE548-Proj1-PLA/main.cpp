@@ -864,7 +864,7 @@ int main()
     string bankNotePath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/data_banknote_authentication.txt";
     string irisPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/iris.data";
     string happyPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/SomervilleHappinessSurvey2015.csv";
-    string balloonPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/balloons/adult+stretch.data";
+    string balloonPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/balloons/adult-stretch.data";
     string tttPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/tic-tac-toe.data";
     string habermanPath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/haberman.data";
     string housePath = "C:/Users/Amelia/source/repos/ECE548-Proj1-PLA/ECE548-Proj1-PLA/house-votes-84.data";
@@ -873,8 +873,8 @@ int main()
     vector<vector<double>> attributes; // input vector
     vector<int> classifier; // output vector
 
-    while (true)
-    {
+    //while (true)
+    //{
         string in;
         int epochs;
         double eta;
@@ -940,7 +940,7 @@ int main()
             }
         }
 
-        else if (in == "happy")
+        else if (in == "happy") //broken
         {
             vector<happyex> hp = readFileIntoHappy(happyPath);
             vector<double> temp = { 0,0,0,0,0,0 };
@@ -1116,25 +1116,68 @@ int main()
 
         PLA model;
         model.loadData(attributes, classifier);
-        model.runModel(epochs, eta);
+        model.optimizeModel(1, 20, 0.01, 0.5, 0.01);
+        //model.runModel(epochs, eta);
 
-        string in_optimize;
-        cout << "Optimize? (y/n): "; cin >> in_optimize;
-        if (in_optimize == "y")
-        {
-            model.optimizeModel(1, 15, 0.05, 1.5, .05); // optimize epochs and eta
-            //model.optimizeModel(1, 15, 0.05, 0.05, .1); // optimize epochs with static eta
-            string outPath = "C:/Users/Amelia/Documents/ECE 548 ML/OUTDATA/PLA_pctGuessed_" + in + "_optimized.csv";
-            model.outputPctVsEpochs(outPath);
-        }
-        else if (in_optimize == "no")
-        {
-            string outPath = "C:/Users/Amelia/Documents/ECE 548 ML/OUTDATA/PLA_pctGuessed_" + in + "_eta=" + std::to_string(eta) +".csv";
-            model.outputPctVsEpochs(outPath);
-        }
+        //string in_optimize;
+        //cout << "Optimize? (y/n): "; cin >> in_optimize;
+        //if (in_optimize == "y")
+        //{
+        //    model.optimizeModel(1, 15, 0.001, .5, .001); // optimize epochs and eta
+        //    //model.optimizeModel(1, 15, 0.05, 0.05, .1); // optimize epochs with static eta
+        //    string outPath = "C:/Users/Amelia/Documents/ECE 548 ML/OUTDATA/PLA_pctGuessed_withLRandEpochsANDPCT_" + in + "_optimized.csv";
+        //    //model.outputPctVsEpochs(outPath);
+        //    model.outputPctVslearningRate(outPath);
+        //}
+        //else if (in_optimize == "no")
+        //{
+        //    string outPath = "C:/Users/Amelia/Documents/ECE 548 ML/OUTDATA/PLA_pctGuessed_withLRandEpochs_" + in + "_eta=" + std::to_string(eta) +".csv";
+        //    //model.outputPctVsEpochs(outPath);
+        //    model.outputPctVslearningRate(outPath);
+        //}
 
-//        model.clearData();        
-        //model.optimizeModel(1, 10, 0.05, 0.5);
+    
+   
 
-    }
+    //for (int i = 1; i <= 20; i++)
+    //{
+    //    for (double j = 0.05; j < 0.2; j += 0.01)
+    //    {
+    //        cout << "epochs = " << i << "  eta = " << j << " ";
+    //        model.runModel(i, j);
+    //    }
+    //}
+
+
+    //model.runModel(25, 0.1);
+
+    //for (int i = 0; i < v.size(); i++)
+    //{
+    //    cout << "Age: " << x[i] << " | Csection " << y[i] << "\n";
+    //}
+
+    //cout << "x size = " << x.size() << "\n";
+
+    //for (int i = 0; i < v.size(); i++)
+    //{
+    //    if (i < v.size() / 2)
+    //        train.push_back(v[i]);
+    //    else
+    //        test.push_back(v[i]);
+    //}
+
+    //cout << "v size = " << v.size() << "\n";
+    //cout << "train size = " << train.size() << "\n";
+    //cout << "test size = " << test.size() << "\n";
+
+
+
+
+    //model.loadData(x., y);
+
+    //cmodel.runModel(20, 0.1);
+
+    //for (int i = 0; i < v.size(); i++)
+    //    cout << v[i].id << ' ' << v[i].age << ' ' << v[i].deliveryNum << ' ' << v[i].deliveryType << ' ' << v[i].blood << ' '
+    //    << v[i].heart << ' ' << v[i].csection << '\n';
 }

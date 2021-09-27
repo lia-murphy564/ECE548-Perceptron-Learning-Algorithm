@@ -90,10 +90,11 @@ void PLA::updateWeights()
 		cout << "Number of misclassified attributes: " << k << endl;
 
 
-		//for (int i = 0; i < weights.size(); i++) {
-		//	cout << "Weights[" << i << "] = " << weights[i] << "\n";
-		//}
-		//cout << "\n";
+		/*cout << "Epoch: " << i << endl;
+		for (int i = 0; i < weights.size(); i++) {
+			cout << "Weights[" << i << "] = " << weights[i] << "\n";
+		}
+		cout << "\n";*/
 
 		int amtCorrect = 0; // amount of correct values
 
@@ -112,14 +113,10 @@ void PLA::updateWeights()
 			//cout << "Guess: " << result << "  Real: " << y[i] << "\n";
 		}
 		double pctGuessed = 100 * (double)amtCorrect / attributes.size();
-		cout << "Epoch: " << i << " | Percent Guessed: " << pctGuessed << " % \n";
-		pctGuessedVec.push_back(pctGuessed);
-
-		for (int i = 0; i < weights.size(); i++) {
-			cout << "Weights[" << i << "] = " << weights[i] << endl;
-		}
-		cout << "Percent Guessed = " << PLA::classifyData() << " % \n";
-
+		//cout << "Epoch: " << i << " | Learning Rate: " << learningRate << " | Percent Guessed: " << pctGuessed << " % \n";
+		//pctGuessedVec.push_back(pctGuessed);
+		//epochsVec.push_back(i);
+		//learningRateVec.push_back(learningRate);
 	}
 }
 
@@ -167,11 +164,18 @@ void PLA::optimizeModel(int epoch_min, int epoch_max, double eta_min, double eta
 		{
 			//cout << "epochs = " << i << "  eta = " << j << " ";
 			double _pctGuessed = PLA::runModel(i, j);
+
+
+			pctGuessedVec.push_back(_pctGuessed);
+			epochsVec.push_back(i);
+			learningRateVec.push_back(learningRate);
+
 			if (_pctGuessed > pctGuessed)
 			{
 				pctGuessed = _pctGuessed;
 				epochs = i;
 				eta = j;
+
 			}
 		}
 	}

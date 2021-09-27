@@ -147,9 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\Documents\ECE 518 ML\imports-85.data" />
-    <None Include="..\..\..\..\Documents\ECE 518 ML\imports-85.names" />
     <None Include="..\..\..\..\Documents\ECE 518 ML\tic-tac-toe.data" />
-    <None Include="..\..\..\..\Documents\ECE 518 ML\tic-tac-toe.names" />
     <None Include="caesarian.csv" />
     <None Include="haberman.data" />
     <None Include="haberman.names" />
