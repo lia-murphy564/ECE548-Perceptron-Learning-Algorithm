@@ -1,5 +1,6 @@
-## Implementation of the perceptron learning algorithm:
+# Implementation of the perceptron learning algorithm:
 
+  > PROMPT:
   > Perceptron learning. Implement the perceptron-learning algorithm (PLA). Choose
   > three domains from the UCI repository and evaluate the PLA’s behavior for each of
   > them. Make sure that each domain contains only two classes. Report the results
@@ -10,7 +11,7 @@
   > 100% accuracy on the training set is impossible to achieve because the classes are
   > not linearly separable.
 
-# Implementation
+### Implementation
 
 Our version of the perceptron learning algorithm was implemented in C++. We created a class to hold all model data and functions. There are three main functions that implement the core of the algorithm.
 
@@ -23,8 +24,15 @@ We used vectors as the primary data structure to hold all attributes, weights, a
 
 We tested eight different datasets on our model (all from the UCI machine learning repository): cesarean section, banknote, iris, balloons, tic-tac-toe, haberman’s survival, and political house. The model was run using a set learning rate of 0.02 and 10 epochs to determine the accuracy of the classification. We also ran an optimization function with a set learning rate of 0.02 to find the minimum epochs to reach the maximum accuracy. Finally we ran the optimization function on both the epochs and learning rate to find the optimal combination of the two.
 
-# Results
+### Results
 
 Our results and discussion is documented in ECE548-Perceptron-Writeup.pdf
+
+### Disclaimer
+
+This project was completed as required for Miroslav Kubat's Machine Learning course (ECE548) at the University of Miami by Lia Murphy, Julio Ojvalo, and Khaled Qurainis 
+
+
+
 
 
