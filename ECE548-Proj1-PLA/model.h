@@ -12,11 +12,6 @@ using namespace std;
 
 class PLA
 {
-	struct example
-	{
-
-	};
-
 protected:
 
 	double learningRate;
@@ -29,6 +24,8 @@ protected:
 	vector<vector<double>> attributes;
 
 	vector<double> pctGuessedVec;
+	vector<double> learningRateVec;
+	vector<int> epochsVec;
 
 
 public:
@@ -48,7 +45,6 @@ public:
 
 	void optimizeModel(int epoch_min, int epoch_max, double eta_min, double eta_max, double eta_interval);
 
-	//int hypothesis(vector<int> vec);
 	int sign(double x);
 
 	int hypothesis(vector<double> train);
@@ -63,6 +59,17 @@ public:
 		for (int i = 0; i < epochs; i++)
 		{
 			of << i + 1 << ',' << pctGuessedVec[i] << endl;
+		}
+	}
+
+	void outputPctVslearningRate(string path)
+	{
+		std::ofstream of;
+		of.open(path);
+		of << "Epochs, Learning Rate, PctGuessed\n";
+		for (int i = 0; i < 10000; i++)
+		{
+			of << epochsVec[i] << ',' << learningRateVec[i] << ',' << pctGuessedVec[i] << endl;
 		}
 	}
 
