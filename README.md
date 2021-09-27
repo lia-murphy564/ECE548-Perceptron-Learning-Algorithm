@@ -9,9 +9,3 @@ needed to achieve 100% accuracy. Discuss the different results in each domain.
 Apart from domains with linearly separable classes, consider also a domain where
 100% accuracy on the training set is impossible to achieve because the classes are
 not linearly separable.
-
-POINTS TO TALK ABOUT
-- setting the bias
-- how to optimize epochs and eta
-- danger of overfitting
-- 
